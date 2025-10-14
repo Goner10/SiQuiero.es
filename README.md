@@ -14,3 +14,12 @@
 - HTML5
 - CSS3 (flex, media queries, scroll-snap)
 - JavaScript (ES6) para interacciones y animaciones+
+
+
+Autores 🧑‍✒️
+---
+
+* Gonzalo - [goner10](https://github.com/Goner10)
+* Maria
+* Gonzalo
+* Juan Manuel
