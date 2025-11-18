@@ -59,14 +59,15 @@ app.get("/api/usuarios", async (req, res) => {
 // Registro de usuario
 app.post("/api/register", async (req, res) => {
   const { nombre, apellidos, email, password, telefono } = req.body;
+
   try {
     const [result] = await pool.query(
-      "INSERT INTO usuario (nombre, apellidos, email, password, telefono) VALUES (?, ?, ?, ?, ?)",
+      "INSERT INTO usuario (nombre, apellidos, email, `contraseña`, telefono) VALUES (?, ?, ?, ?, ?)",
       [nombre, apellidos, email, password, telefono]
     );
-    res.json({ ok: true, id: result.insertId });
+    res.json({ ok: true, id: result.insertId, ok: true });
   } catch (err) {
-    console.error(err);
+    console.error("Error en /api/register:", err);
     res.status(500).json({ ok: false, error: "Error registrando usuario" });
   }
 });
@@ -74,15 +75,21 @@ app.post("/api/register", async (req, res) => {
 // Login de usuario
 app.post("/api/login", async (req, res) => {
   const { email, password } = req.body;
+
   try {
-    const [rows] = await pool.query("SELECT * FROM usuario WHERE email = ? AND password = ?", [email, password]);
+    const [rows] = await pool.query(
+      "SELECT id_usuario, nombre, apellidos, email FROM usuario WHERE email = ? AND `contraseña` = ?",
+      [email, password]
+    );
+
     if (rows.length > 0) {
+      // No devolvemos la contraseña al cliente
       res.json({ ok: true, usuario: rows[0] });
     } else {
       res.json({ ok: false, error: "Email o contraseña incorrectos" });
     }
   } catch (err) {
-    console.error(err);
+    console.error("Error en /api/login:", err);
     res.status(500).json({ ok: false, error: "Error en el login" });
   }
 });
