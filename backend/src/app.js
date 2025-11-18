@@ -53,6 +53,65 @@ app.get("/api/usuarios", async (req, res) => {
   }
 });
 
+// Registro de usuario
+app.post("/api/register", async (req, res) => {
+  const { nombre, apellidos, email, password, telefono } = req.body;
+  try {
+    const [result] = await pool.query(
+      "INSERT INTO usuario (nombre, apellidos, email, password, telefono) VALUES (?, ?, ?, ?, ?)",
+      [nombre, apellidos, email, password, telefono]
+    );
+    res.json({ ok: true, id: result.insertId });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ ok: false, error: "Error registrando usuario" });
+  }
+});
+
+// Login de usuario
+app.post("/api/login", async (req, res) => {
+  const { email, password } = req.body;
+  try {
+    const [rows] = await pool.query("SELECT * FROM usuario WHERE email = ? AND password = ?", [email, password]);
+    if (rows.length > 0) {
+      res.json({ ok: true, usuario: rows[0] });
+    } else {
+      res.json({ ok: false, error: "Email o contraseña incorrectos" });
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ ok: false, error: "Error en el login" });
+  }
+});
+
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Servir HTML
+app.get("/registro.html", (req, res) => {
+  res.sendFile(path.join(__dirname, "../registro.html"));
+});
+
+app.get("/login.html", (req, res) => {
+  res.sendFile(path.join(__dirname, "../login.html"));
+});
+
+app.get("/index.html", (req, res) => {
+  res.sendFile(path.join(__dirname, "../index.html"));
+});
+
+// Servir CSS y JS
+app.get("/styles.css", (req, res) => {
+  res.sendFile(path.join(__dirname, "../styles.css"));
+});
+
+app.get("/main.js", (req, res) => {
+  res.sendFile(path.join(__dirname, "../main.js"));
+});
+
 app.listen(PORT, () => {
   console.log(`Servidor escuchando en http://localhost:${PORT}`);
 });

@@ -302,3 +302,117 @@ main {
 .debug-panel h3 {
   margin-bottom: 0.5rem;
 }
+
+.register-container {
+  background: #fff;
+  padding: 2rem 3rem;
+  border-radius: 18px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.register-container h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #32b95c;
+}
+
+.register-container label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  color: #222;
+}
+
+.register-container input {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border-radius: 999px;
+  border: 1px solid #e0e5e0;
+  outline: none;
+  font-size: 0.9rem;
+}
+
+.register-container button {
+  width: 100%;
+  padding: 0.6rem;
+  background: #5ee089;
+  border: none;
+  border-radius: 999px;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.3s;
+}
+
+.register-container button:hover {
+  background: #32b95c;
+}
+
+#register-msg {
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: red;
+}
+
+.login-container {
+  background: #fff;
+  padding: 2rem 3rem;
+  border-radius: 18px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.login-container h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #32b95c;
+}
+
+.login-container label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  color: #222;
+}
+
+.login-container input {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border-radius: 999px;
+  border: 1px solid #e0e5e0;
+  outline: none;
+  font-size: 0.9rem;
+}
+
+.login-container button {
+  width: 100%;
+  padding: 0.6rem;
+  background: #5ee089;
+  border: none;
+  border-radius: 999px;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.3s;
+}
+
+.login-container button:hover {
+  background: #32b95c;
+}
+
+#login-msg {
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: red;
+}

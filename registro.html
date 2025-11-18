@@ -1,0 +1,68 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title>
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+<body>
+ <div class="register-container">
+    <h2>Regístrate</h2>
+    <form id="register-form">
+      <label>Nombre</label>
+      <input type="text" name="nombre" required>
+      
+      <label>Apellidos</label>
+      <input type="text" name="apellidos" required>
+
+      <label>Email</label>
+      <input type="email" name="email" required>
+
+      <label>Contraseña</label>
+      <input type="password" name="password" required>
+
+      <label>Teléfono</label>
+      <input type="text" name="telefono">
+
+      <button type="submit">Registrarse</button>
+      <p id="register-msg"></p>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById("register-form");
+    const msg = document.getElementById("register-msg");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const nombre = form.nombre.value;
+      const apellidos = form.apellidos.value;
+      const email = form.email.value;
+      const password = form.password.value;
+      const telefono = form.telefono.value;
+
+      try {
+        const res = await fetch("http://localhost:3001/api/register", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ nombre, apellidos, email, password, telefono })
+        });
+
+        const data = await res.json();
+
+        if (data.ok) {
+          window.location.href = "/index.html";
+        } else {
+          msg.textContent = data.error;
+        }
+      } catch (err) {
+        console.error(err);
+        msg.textContent = "Error al registrar. Inténtalo de nuevo.";
+      }
+    });
+  </script>
+  </body>
+</html>
