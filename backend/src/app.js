@@ -2,6 +2,8 @@ import express from "express";
 import cors from "cors";
 import { pool } from "./db.js";
 
+
+//Prueba la conexion a la base de datos
 (async () => {
   try {
     const conn = await pool.getConnection();
@@ -39,6 +41,7 @@ app.get("/api/test-db", async (req, res) => {
   }
 });
 
+//Ruta para pintar los usuario registrados
 app.get("/api/usuarios", async (req, res) => {
   try {
     const [rows] = await pool.query(`

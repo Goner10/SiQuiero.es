@@ -1,9 +1,10 @@
 :root {
-  --primary: #5ee089;
+  --primary: #5EE089;
   --primary-dark: #32b95c;
   --bg: #fbfffb;
   --text: #222;
   --muted: #698b74;
+  --pink: #e079d7;
   --border: #e0e5e0;
   --radius: 12px;
 }
@@ -14,9 +15,12 @@
 
 body {
   margin: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: "Merriweather Sans", sans-serif;
   background: var(--bg);
   color: var(--text);
+}
+h1, h2, h3, h4 {
+  font-family: "Merriweather Sans", sans-serif;
 }
 
 /* HEADER */
@@ -34,7 +38,7 @@ body {
 .header-left {
   display: flex;
   align-items: center;
-  gap: 2rem;
+  gap: 3rem;
 }
 
 .logo {
@@ -52,7 +56,7 @@ body {
 
 .main-nav {
   display: flex;
-  gap: 1.5rem;
+  gap: 2rem;
   font-size: 0.95rem;
 }
 
@@ -85,11 +89,11 @@ body {
 
 .auth-link {
   text-decoration: none;
-  font-size: 0.95rem;
-  color: var(--muted);
+  font-size: 1rem;
+  color: var(--pink);
   padding: 0.4rem 0.8rem;
   border-radius: 999px;
-
+  
 }
 
 .auth-link:hover {
@@ -146,16 +150,11 @@ main {
   justify-content: flex-end;
 }
 
-.hero-image-placeholder {
+.pareja {
+  border-radius: 10px;
   width: 100%;
-  max-width: 420px;
-  aspect-ratio: 4 / 3;
-  border-radius: 18px;
-  background: #ddd;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #555;
+  max-width: 500px;
+  transform: translateX(50px); /* desplaza 20px hacia la derecha */
 }
 
 /* BUSCADOR */
