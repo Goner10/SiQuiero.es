@@ -7,9 +7,122 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>SiQuiero.es</h1>
+    
 
-    <p>holaa</p>
+    <header class="site-header">
+    <div class="header-left">
+    <div class="logo">
+  <img src="assets/LogoGuay.png" alt="logo SiQuiero.es" class="logo-img">
+</div>
+      <nav class="main-nav">
+        <a href="#" class="nav-link nav-link--active">Mi boda</a>
+        <a href="#" class="nav-link">Proveedores</a>
+        <a href="#" class="nav-link">Lugares</a>
+        <a href="#" class="nav-link">Novias</a>
+        <a href="#" class="nav-link">Novios</a>
+        <a href="#" class="nav-link">Comunidad</a>
+      </nav>
+    </div>
+
+    <div class="header-right">
+      <a href="#" class="auth-link">Accede</a>
+  <a href="#" class="auth-link auth-link--primary">Regístrate</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO principal -->
+    <section class="hero">
+      <div class="hero-left">
+        <p class="hero-kicker">Encuentra todo lo que necesitas para organizar tu boda</p>
+        <h1>¡Tienes miles de proveedores para elegir!</h1>
+
+        <form class="hero-search" onsubmit="return false;">
+          <div class="search-field">
+            <span class="search-icon">🔍</span>
+            <input type="text" placeholder="Busca por nombre o por categoría" />
+          </div>
+          <div class="search-field">
+            <span class="search-label">en</span>
+            <input type="text" placeholder="Dónde" />
+          </div>
+          <button type="submit" class="btn-primary">Buscar</button>
+        </form>
+      </div>
+
+      <div class="hero-right">
+        <!-- Ponéis luego una imagen real aquí -->
+        <div class="hero-image-placeholder">
+          <span>Futura imagen de pareja 🥂</span>
+        </div>
+      </div>
+    </section>
+
+    <!--
+    
+    <section class="wedding-summary">
+      <h2>Todo sobre tu boda</h2>
+
+      <div class="summary-grid">
+        <article class="summary-card summary-card--user">
+          <div class="summary-card-header">
+            <h3>User123</h3>
+            <p>23 de julio de 2026</p>
+          </div>
+          <div class="summary-card-countdown">
+            <div>
+              <strong>233</strong>
+              <span>días</span>
+            </div>
+            <div>
+              <strong>23</strong>
+              <span>horas</span>
+            </div>
+            <div>
+              <strong>13</strong>
+              <span>min</span>
+            </div>
+            <div>
+              <strong>33</strong>
+              <span>s</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="summary-card summary-card--image">
+          <div class="image-placeholder">Foto de la boda</div>
+        </article>
+
+        <article class="summary-card">
+          <div class="summary-icon">📋</div>
+          <p><strong>0 de 13</strong></p>
+          <span>Servicios contratados</span>
+        </article>
+
+        <article class="summary-card">
+          <div class="summary-icon">📑</div>
+          <p><strong>23 de 96</strong></p>
+          <span>Tareas completadas</span>
+        </article>
+
+        <article class="summary-card">
+          <div class="summary-icon">🧍‍♀️</div>
+          <p><strong>12 de 96</strong></p>
+          <span>Invitados confirmados</span>
+        </article>
+
+        <article class="summary-card">
+          <div class="summary-icon">🧮</div>
+          <p><strong>3.000 €</strong></p>
+          <span>Presupuesto gastado</span>
+        </article>
+      </div>
+    </section>  -->
+
+    
+    
+  </main>
+    
     <script src="main.js" defer></script>
 </body>
 </html>

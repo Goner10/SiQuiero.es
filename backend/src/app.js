@@ -39,6 +39,20 @@ app.get("/api/test-db", async (req, res) => {
   }
 });
 
+app.get("/api/usuarios", async (req, res) => {
+  try {
+    const [rows] = await pool.query(`
+      SELECT id_usuario, nombre, apellidos, email 
+      FROM usuario
+      LIMIT 20
+    `);
+    res.json(rows);
+  } catch (err) {
+    console.error("Error /api/usuarios:", err);
+    res.status(500).json({ error: "Error consultando usuarios" });
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`Servidor escuchando en http://localhost:${PORT}`);
 });
