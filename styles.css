@@ -565,3 +565,77 @@ main {
     margin-right: 0.5rem;
   }
 }
+
+
+/* TÍTULO */
+.wedding-summary {
+  margin-top: 3rem;
+  padding-left: 1rem;
+}
+
+.wedding-summary h2 {
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+/* CONTENEDOR FLEX COMO EL EJEMPLO */
+.summary-cards {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;   /* Para poder hacer scroll si la pantalla es pequeña */
+  padding-bottom: 1rem;
+}
+
+.summary-cards::-webkit-scrollbar {
+  height: 0; /* Oculta barra */
+}
+
+/* TARJETAS */
+.summary-card {
+  min-width: 180px;
+  background: #fff;
+  padding: 1.4rem;
+  border: 2px solid #6EC78D; /* Verde suave SiQuiero */
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+
+/* ICONOS GRANDES */
+.summary-icon {
+  font-size: 2rem;
+  margin-bottom: 0.6rem;
+}
+
+/* TEXTO */
+.summary-label {
+  color: #777;
+  font-size: 0.9rem;
+}
+
+/* FECHA */
+.summary-date {
+  color: #888;
+  font-size: 0.9rem;
+}
+
+/* CUENTA ATRÁS */
+.summary-countdown {
+  display: flex;
+  justify-content: center;
+  gap: 0.8rem;
+  margin-top: 0.5rem;
+}
+
+.summary-countdown div {
+  text-align: center;
+}
+
+.summary-countdown strong {
+  font-size: 1.2rem;
+  color: #333;
+}
