@@ -5,10 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="styles.css">
-   
+</head>
  <body>
+
+ <header class="site-header">
+    <div class="header-left">
+    <div class="logo">
+ <a href="index.html"><img src="assets/LogoGuay.png" alt="logo SiQuiero.es" class="logo-img"></a> 
+</div>
+      <nav class="main-nav">
+        <a href="#" class="nav-link nav-link--active">Mi boda</a>
+        <a href="proveedores.html" class="nav-link">Proveedores</a>
+        <a href="lugares.html" class="nav-link">Lugares</a>
+        <a href="#" class="nav-link">Novias</a>
+        <a href="#" class="nav-link">Novios</a>
+        <a href="#" class="nav-link">Comunidad</a>
+      </nav>
+    </div>
+
+    <div class="header-right">
+      <a href="login.html" class="auth-link">Accede</a>
+  <a href="registro.html" class="auth-link auth-link--primary">Regístrate</a>
+    </div>
+  </header>
+
+
     <div class="login-container">
-    <h2>Accede</h2>
+    <h2>Accede a tu cuenta</h2>
     <form id="login-form">
       <label>Email</label>
       <input type="email" name="email" required>
@@ -20,40 +43,44 @@
       <p id="login-msg"></p>
     </form>
   </div>
+ <footer class="site-footer">
+  <div class="footer-content">
+    
+   
+    <div class="footer-column">
+      <h4>SiQuiero.es</h4>
+      <p>Tu plataforma para encontrar proveedores y organizar tu boda de forma sencilla.</p>
+    </div>
 
-  <script>
-    const form = document.getElementById("login-form");
-    const msg = document.getElementById("login-msg");
+   
 
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
+   
+    <div class="footer-column">
+      <h5>Ayuda</h5>
+      <ul>
+        <li><a href="#">Preguntas frecuentes</a></li>
+        <li><a href="#">Contacto</a></li>
+        <li><a href="#">Privacidad</a></li>
+        <li><a href="#">Términos y condiciones</a></li>
+      </ul>
+    </div>
 
-      const email = form.email.value;
-      const password = form.password.value;
+    
+    <div class="footer-column">
+      <h5>Síguenos en</h5>
+      <div class="footer-social">
+        <a href="#">📸 Instagram</a>
+        <a href="#">💼 LinkedIn</a>
+        <a href="#">📘 Facebook</a>
+      </div>
+    </div>
 
-      try {
-        const res = await fetch("http://localhost:3001/api/login", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, password })
-        });
+  </div>
 
-        const data = await res.json();
-
-        if (data.ok) {
-          // Guardamos el usuario en localStorage
-          localStorage.setItem("usuarioLogueado", JSON.stringify({ nombre: data.usuario.nombre }));
-
-          // Redirigimos al index
-          window.location.href = "/index.html";
-        } else {
-          msg.textContent = data.error;
-        }
-      } catch (err) {
-        console.error(err);
-        msg.textContent = "Error al iniciar sesión. Inténtalo de nuevo.";
-      }
-    });
-  </script>
+  <div class="footer-bottom">
+    <p>© 2025 SiQuiero.es — Todos los derechos reservados</p>
+  </div>
+</footer>
+ <script src="main.js"></script>
 </body>
 </html>

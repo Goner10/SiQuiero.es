@@ -8,28 +8,89 @@
 
 </head>
 <body>
+
+ <header class="site-header">
+    <div class="header-left">
+    <div class="logo">
+ <a href="index.html"><img src="assets/LogoGuay.png" alt="logo SiQuiero.es" class="logo-img"></a> 
+</div>
+      <nav class="main-nav">
+        <a href="#" class="nav-link nav-link--active">Mi boda</a>
+        <a href="proveedores.html" class="nav-link">Proveedores</a>
+        <a href="lugares.html" class="nav-link">Lugares</a>
+        <a href="#" class="nav-link">Novias</a>
+        <a href="#" class="nav-link">Novios</a>
+        <a href="#" class="nav-link">Comunidad</a>
+      </nav>
+    </div>
+
+    <div class="header-right">
+      <a href="login.html" class="auth-link">Accede</a>
+  <a href="registro.html" class="auth-link auth-link--primary">Regístrate</a>
+    </div>
+  </header>
+
  <div class="register-container">
     <h2>Regístrate</h2>
     <form id="register-form">
-      <label>Nombre</label>
-      <input type="text" name="nombre" required>
       
-      <label>Apellidos</label>
-      <input type="text" name="apellidos" required>
+      <input type="text" name="nombre" placeholder="Nombre " required>
+    
+      
+      <input type="text" name="apellidos" placeholder="Apellidos" required>
 
-      <label>Email</label>
-      <input type="email" name="email" required>
+      
+      <input type="email" name="email" placeholder="Email" required>
 
-      <label>Contraseña</label>
-      <input type="password" name="password" required>
+      
+      <input type="password" name="password" placeholder="Contraseña" required>
 
-      <label>Teléfono</label>
-      <input type="text" name="telefono">
+      
+      <input type="tel" name="telefono" placeholder="Teléfono" required>
 
       <button type="submit">Registrarse</button>
       <p id="register-msg"></p>
     </form>
   </div>
+
+   <footer class="site-footer">
+  <div class="footer-content">
+    
+   
+    <div class="footer-column">
+      <h4>SiQuiero.es</h4>
+      <p>Tu plataforma para encontrar proveedores y organizar tu boda de forma sencilla.</p>
+    </div>
+
+   
+
+   
+    <div class="footer-column">
+      <h5>Ayuda</h5>
+      <ul>
+        <li><a href="#">Preguntas frecuentes</a></li>
+        <li><a href="#">Contacto</a></li>
+        <li><a href="#">Privacidad</a></li>
+        <li><a href="#">Términos y condiciones</a></li>
+      </ul>
+    </div>
+
+    
+    <div class="footer-column">
+      <h5>Síguenos en</h5>
+      <div class="footer-social">
+        <a href="#">📸 Instagram</a>
+        <a href="#">💼 LinkedIn</a>
+        <a href="#">📘 Facebook</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    <p>© 2025 SiQuiero.es — Todos los derechos reservados</p>
+  </div>
+</footer>
 
 <script src="main.js"></script>
   </body>

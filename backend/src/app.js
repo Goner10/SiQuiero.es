@@ -20,15 +20,20 @@ const PORT = process.env.PORT || 3001;
 app.use(cors({ origin: "*" }));
 app.use(express.json());
 
+
 // Ruta simple de prueba
 app.get("/", (req, res) => {
   res.send("API SiQuiero.es funcionando");
 });
 
+
+
 // Ruta JSON de prueba
 app.get("/api/status", (req, res) => {
   res.json({ ok: true, message: "API SiQuiero.es funcionando en JSON" });
 });
+
+
 
 // Ruta para comprobar la conexión con la BD
 app.get("/api/test-db", async (req, res) => {
@@ -56,6 +61,25 @@ app.get("/api/usuarios", async (req, res) => {
   }
 });
 
+// endpoint para proveedores destacados para el carrusel (todavia no existe)
+app.get("/api/proveedores/destacados", async (req, res) => {
+  try {
+    const [rows] = await pool.query(`
+      SELECT id_proveedor, nombre, categoria, rating, num_opiniones, imagen_url
+      FROM proveedor
+      ORDER BY rating DESC, num_opiniones DESC
+      LIMIT 10
+    `);
+
+    res.json({ ok: true, proveedores: rows });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ ok: false, error: "Error obteniendo proveedores" });
+  }
+});
+
+
+
 // Registro de usuario
 app.post("/api/register", async (req, res) => {
   const { nombre, apellidos, email, password, telefono } = req.body;
@@ -65,7 +89,7 @@ app.post("/api/register", async (req, res) => {
       "INSERT INTO usuario (nombre, apellidos, email, `contraseña`, telefono) VALUES (?, ?, ?, ?, ?)",
       [nombre, apellidos, email, password, telefono]
     );
-    res.json({ ok: true, id: result.insertId, ok: true });
+    res.json({ ok: true, id: result.insertId});
   } catch (err) {
     console.error("Error en /api/register:", err);
     res.status(500).json({ ok: false, error: "Error registrando usuario" });
