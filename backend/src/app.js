@@ -1,6 +1,8 @@
 import express from "express";
 import cors from "cors";
 import { pool } from "./db.js";
+import path from "path";
+import { fileURLToPath } from "url";
 
 
 //Prueba la conexion a la base de datos
@@ -26,14 +28,10 @@ app.get("/", (req, res) => {
   res.send("API SiQuiero.es funcionando");
 });
 
-
-
 // Ruta JSON de prueba
 app.get("/api/status", (req, res) => {
   res.json({ ok: true, message: "API SiQuiero.es funcionando en JSON" });
 });
-
-
 
 // Ruta para comprobar la conexión con la BD
 app.get("/api/test-db", async (req, res) => {
@@ -45,6 +43,9 @@ app.get("/api/test-db", async (req, res) => {
     res.status(500).json({ ok: false, error: err.message });
   }
 });
+
+
+
 
 //Ruta para pintar los usuario registrados
 app.get("/api/usuarios", async (req, res) => {
@@ -118,8 +119,7 @@ app.post("/api/login", async (req, res) => {
   }
 });
 
-import path from "path";
-import { fileURLToPath } from "url";
+
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
