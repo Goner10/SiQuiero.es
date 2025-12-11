@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   pintarUsuarios();
   actualizarHeader();
+  setupRegistroForm();
 });
 
 function pintarUsuarios() {
@@ -41,10 +42,14 @@ function pintarUsuarios() {
     });
 }
 
+
+
+
 // Actualizar header según si el usuario está logueado
 function actualizarHeader() {
   const header = document.querySelector(".header-right");
-  header.innerHTML = ""; // Limpiamos botones por defecto
+   if (!header) return;
+  header.innerHTML = "";
 
   const usuario = JSON.parse(localStorage.getItem("usuarioLogueado"));
   if (usuario) {
@@ -85,4 +90,49 @@ function actualizarHeader() {
     header.appendChild(loginLink);
     header.appendChild(registerLink);
   }
+}
+
+
+
+
+function setupRegistroForm() {
+  const form = document.getElementById("register-form");
+  const msg = document.getElementById("register-msg");
+
+  // Si no estoy en registro.html, no hago nada
+  if (!form || !msg) return;
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const nombre = form.nombre.value;
+    const apellidos = form.apellidos.value;
+    const email = form.email.value;
+    const password = form.password.value;
+    const telefono = form.telefono.value;
+
+    try {
+      const res = await fetch("http://localhost:3001/api/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ nombre, apellidos, email, password, telefono })
+      });
+
+      const data = await res.json();
+
+      if (data.ok) {
+       msg.textContent = "Se ha registrado el usuario correctamente.";
+       msg.style.color = "green";
+       form.reset();
+       // 👉 más adelante aquí haremos: window.location.href = "/usuario.html";
+      } else {
+      msg.textContent = data.error || "Error al registrar.";
+      msg.style.color = "red";
+      }
+    } catch (err) {
+      console.error(err);
+      msg.textContent = "Error al registrar. Inténtalo de nuevo.";
+      msg.style.color = "red";
+    }
+  });
 }
