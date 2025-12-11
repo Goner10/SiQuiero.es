@@ -1,46 +1,104 @@
 document.addEventListener("DOMContentLoaded", () => {
-  pintarUsuarios();
+  //pintarUsuarios();
   actualizarHeader();
   setupRegistroForm();
+  setupLoginForm();
+  initCarousel();
 });
 
-function pintarUsuarios() {
-  // Creamos una sección debajo del h1
-  const section = document.createElement("section");
-  const title = document.createElement("h2");
-  title.textContent = "Usuarios registrados:";
-  section.appendChild(title);
 
-  const info = document.createElement("p");
-  info.textContent = "Cargando usuarios...";
-  section.appendChild(info);
+function initCarousel() {
+  const track = document.querySelector(".carousel-track");
+  const prevBtn = document.querySelector(".carousel-btn--prev");
+  const nextBtn = document.querySelector(".carousel-btn--next");
+  const cards = document.querySelectorAll(".carousel-card");
 
-  document.body.appendChild(section);
+  if (!track || cards.length === 0) return;
 
-  fetch("http://localhost:3001/api/usuarios")
-    .then(res => res.json())
-    .then(usuarios => {
-      if (!Array.isArray(usuarios) || usuarios.length === 0) {
-        info.textContent = "No hay usuarios para mostrar.";
-        return;
-      }
+  let currentIndex = 0;
+  let cardsPerView = getCardsPerView(); // 3 / 2 / 1 según la pantalla
 
-      info.remove(); // quitamos el "Cargando usuarios..."
+  function getCardsPerView() {
+    if (window.innerWidth <= 550) return 1;
+    if (window.innerWidth <= 850) return 2;
+    return 3;
+  }
 
-      const ul = document.createElement("ul");
-      usuarios.forEach(u => {
-        const li = document.createElement("li");
-        li.textContent = `${u.nombre} ${u.apellidos} — ${u.email}`;
-        ul.appendChild(li);
-      });
+  function updateCarousel() {
+    const cardWidth = cards[0].offsetWidth;
+    const gap = 16; // 1rem en píxeles aprox
+    const moveAmount = currentIndex * (cardWidth + gap) * -1;
 
-      section.appendChild(ul);
-    })
-    .catch(err => {
-      console.error("Error usuarios:", err);
-      info.textContent = "Error cargando usuarios.";
-    });
+    track.style.transform = `translateX(${moveAmount}px)`;
+  }
+
+  // Botón siguiente
+  nextBtn.addEventListener("click", () => {
+    const maxIndex = cards.length - cardsPerView;
+
+    if (currentIndex < maxIndex) {
+      currentIndex++;
+      updateCarousel();
+    }
+  });
+
+  // Botón anterior
+  prevBtn.addEventListener("click", () => {
+    if (currentIndex > 0) {
+      currentIndex--;
+      updateCarousel();
+    }
+  });
+
+  // Reajustar en responsive
+  window.addEventListener("resize", () => {
+    const newCardsPerView = getCardsPerView();
+
+    if (newCardsPerView !== cardsPerView) {
+      cardsPerView = newCardsPerView;
+      currentIndex = 0;
+      updateCarousel();
+    }
+  });
+
+  updateCarousel(); // primera carga
 }
+
+/*
+ FUTURO: Cargar proveedores destacados desde la BD
+=============================================
+
+async function cargarProveedoresDestacados() {
+  const res = await fetch("http://localhost:3001/api/proveedores/destacados");
+  const data = await res.json();
+
+  const track = document.querySelector(".carousel-track");
+  track.innerHTML = ""; // limpiar las cards estáticas
+
+  data.proveedores.forEach(p => {
+    const card = document.createElement("article");
+    card.classList.add("carousel-card");
+
+    card.innerHTML = `
+      <div class="carousel-card-image">
+        <img src="${p.imagen_url}" alt="${p.nombre}">
+      </div>
+      <div class="carousel-card-body">
+        <h3>${p.nombre}</h3>
+        <p class="carousel-card-category">${p.categoria}</p>
+        <p class="carousel-card-rating">⭐ ${p.rating} · ${p.num_opiniones} opiniones</p>
+      </div>
+    `;
+
+    track.appendChild(card);
+  });
+
+  // Re-inicializar carrusel porque ahora tiene nuevas cards
+  initCarousel();
+}
+
+
+*/ 
 
 
 
@@ -121,7 +179,7 @@ function setupRegistroForm() {
       const data = await res.json();
 
       if (data.ok) {
-       msg.textContent = "Se ha registrado el usuario correctamente.";
+       msg.textContent = "¡Te has registrado!";
        msg.style.color = "green";
        form.reset();
        // 👉 más adelante aquí haremos: window.location.href = "/usuario.html";
@@ -136,3 +194,85 @@ function setupRegistroForm() {
     }
   });
 }
+
+
+ function setupLoginForm() {
+  const form = document.getElementById("login-form");
+  const msg = document.getElementById("login-msg");
+
+  if (!form || !msg) return; // si no estoy en login.html, nada
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const email = form.email.value;
+    const password = form.password.value;
+
+    try {
+      const res = await fetch("http://localhost:3001/api/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password })
+      });
+
+      const data = await res.json();
+
+      if (data.ok) {
+        // Guardamos el usuario en localStorage
+        localStorage.setItem("usuarioLogueado", JSON.stringify(data.usuario));
+        // Redirigimos al index (más adelante a usuario.html)
+        window.location.href = "/index.html";
+      } else {
+        msg.textContent = data.error || "Email o contraseña incorrectos";
+        msg.style.color = "red";
+      }
+    } catch (err) {
+      console.error(err);
+      msg.textContent = "Error al conectar con el servidor";
+      msg.style.color = "red";
+    }
+  });
+}
+
+
+
+/*
+function pintarUsuarios() {
+  // Creamos una sección debajo del h1
+  const section = document.createElement("section");
+  const title = document.createElement("h2");
+  title.textContent = "Usuarios registrados:";
+  section.appendChild(title);
+
+  const info = document.createElement("p");
+  info.textContent = "Cargando usuarios...";
+  section.appendChild(info);
+
+  document.body.appendChild(section);
+
+  fetch("http://localhost:3001/api/usuarios")
+    .then(res => res.json())
+    .then(usuarios => {
+      if (!Array.isArray(usuarios) || usuarios.length === 0) {
+        info.textContent = "No hay usuarios para mostrar.";
+        return;
+      }
+
+      info.remove(); // quitamos el "Cargando usuarios..."
+
+      const ul = document.createElement("ul");
+      usuarios.forEach(u => {
+        const li = document.createElement("li");
+        li.textContent = `${u.nombre} ${u.apellidos} — ${u.email}`;
+        ul.appendChild(li);
+      });
+
+      section.appendChild(ul);
+    })
+    .catch(err => {
+      console.error("Error usuarios:", err);
+      info.textContent = "Error cargando usuarios.";
+    });
+}
+
+*/ 
