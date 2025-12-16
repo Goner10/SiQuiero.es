@@ -237,6 +237,11 @@ main {
   flex-direction: column;
   gap: 0.6rem;
   box-shadow: 0 3px 9px #00000026;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.summary-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
 }
 
 .summary-card h3 {
@@ -369,6 +374,7 @@ main {
   width: 100%;
   height: 180px;
   object-fit: cover;
+  opacity: 90%;
 }
 
 /* CUERPO */
