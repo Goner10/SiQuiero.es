@@ -236,6 +236,12 @@ main {
   display: flex;
   flex-direction: column;
   gap: 0.6rem;
+  box-shadow: 0 3px 9px #00000026;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.summary-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
 }
 
 .summary-card h3 {
@@ -368,6 +374,7 @@ main {
   width: 100%;
   height: 180px;
   object-fit: cover;
+  opacity: 90%;
 }
 
 /* CUERPO */
@@ -684,21 +691,25 @@ main {
   margin-bottom: 0.4rem;
 }
 
-.footer-column a {
+.footer-column  {
   text-decoration: none;
   color: var(--muted);
   font-size: 0.9rem;
   transition: color 0.2s ease;
 }
 
-.footer-column a:hover {
-  color: var(--primary-dark);
+
+.footer-social {
+  display: flex;
+  gap: 0.8rem;
+  align-items: center;
+}
+.footer-social img {
+  width: 40px;
+  height: auto;
+  cursor: pointer;
 }
 
-.footer-social a {
-  display: block;
-  margin-bottom: 0.4rem;
-}
 
 
 .footer-bottom {
