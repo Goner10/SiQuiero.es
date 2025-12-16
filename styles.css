@@ -817,3 +817,119 @@ main {
   font-size: 1.2rem;
   color: #333;
 }
+
+/* CONTENEDOR PRINCIPAL */
+.contenedorLugares {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 24px;
+  padding: 24px;
+}
+
+/* FILTROS */
+.filtros {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid #e5e5e5;
+}
+
+.filtros h3 {
+  margin-top: 0;
+}
+
+.filtros label {
+  display: block;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+/* LISTADO */
+.listado {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* TARJETA */
+.lugar {
+  background: white;
+  display: flex;
+  gap: 20px;
+  padding: 18px;
+  border-radius: 14px;
+  border: 1px solid #e5e5e5;
+}
+
+.lugar img {
+  width: 260px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.lugar .info {
+  flex: 1;
+}
+
+.lugar h2 {
+  margin: 0 0 6px 0;
+}
+
+.ubicacion {
+  color: #777;
+  font-size: 14px;
+}
+
+.descripcion {
+  margin: 10px 0;
+  color: #555;
+}
+
+.precio {
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+/* BOTÓN */
+.boton {
+  display: inline-block;
+  background: #6EC78D;
+  color: white;
+  padding: 10px 18px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* CONTENEDOR PRINCIPAL */
+.contenedorProveedores {
+  max-width: 1200px;
+  margin: auto;
+  padding: 24px;
+}
+
+/* TARJETA PROVEEDOR */
+.proveedor {
+  background: white;
+  display: flex;
+  gap: 20px;
+  padding: 18px;
+  border-radius: 14px;
+  border: 1px solid #e5e5e5;
+}
+
+.proveedor img {
+  width: 260px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.proveedor .info {
+  flex: 1;
+}
+
+.proveedor h2 {
+  margin: 0 0 6px 0;
+}
