@@ -46,7 +46,7 @@ function setupRegistroForm() {
       const data = await res.json();
 
       if (data.ok) {
-       msg.textContent = "¡Te has registrado!";
+       msg.textContent = "¡Te has registrado correctamente !" ;
        msg.style.color = "green";
        form.reset();
        //  más adelante aquí haremos: window.location.href = "/usuario.html";

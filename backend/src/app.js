@@ -3,6 +3,7 @@ import cors from "cors";
 import { pool } from "./db.js";
 import path from "path";
 import { fileURLToPath } from "url";
+import bcrypt from "bcrypt";
 
 
 //Prueba la conexion a la base de datos
@@ -86,14 +87,17 @@ app.post("/api/register", async (req, res) => {
   const { nombre, apellidos, email, password, telefono } = req.body;
 
   try {
+    const hash = await bcrypt.hash(password, 10);
+
     const [result] = await pool.query(
       "INSERT INTO usuario (nombre, apellidos, email, `contraseña`, telefono) VALUES (?, ?, ?, ?, ?)",
-      [nombre, apellidos, email, password, telefono]
+      [nombre, apellidos, email, hash, telefono]
     );
-    res.json({ ok: true, id: result.insertId});
+
+    res.json({ ok: true, id: result.insertId });
   } catch (err) {
-    console.error("Error en /api/register:", err);
-    res.status(500).json({ ok: false, error: "Error registrando usuario" });
+    console.error(err);
+    res.status(500).json({ ok: false, error: "Error en el servidor" });
   }
 });
 
@@ -103,22 +107,30 @@ app.post("/api/login", async (req, res) => {
 
   try {
     const [rows] = await pool.query(
-      "SELECT id_usuario, nombre, apellidos, email FROM usuario WHERE email = ? AND `contraseña` = ?",
-      [email, password]
+      "SELECT id_usuario, nombre, apellidos, email, `contraseña` FROM usuario WHERE email = ?",
+      [email]
     );
 
-    if (rows.length > 0) {
-      // No devolvemos la contraseña al cliente
-      res.json({ ok: true, usuario: rows[0] });
-    } else {
-      res.json({ ok: false, error: "Email o contraseña incorrectos" });
+    if (!rows.length) {
+      return res.status(401).json({ ok: false, error: "Email o contraseña incorrectos" });
     }
+
+    const user = rows[0];
+    const ok = await bcrypt.compare(password, user.contraseña);
+
+    if (!ok) {
+      return res.status(401).json({ ok: false, error: "Email o contraseña incorrectos" });
+    }
+
+    res.json({
+      ok: true,
+      usuario: { id_usuario: user.id_usuario, nombre: user.nombre, apellidos: user.apellidos, email: user.email }
+    });
   } catch (err) {
-    console.error("Error en /api/login:", err);
-    res.status(500).json({ ok: false, error: "Error en el login" });
+    console.error(err);
+    res.status(500).json({ ok: false, error: "Error en el servidor" });
   }
 });
-
 
 
 const __filename = fileURLToPath(import.meta.url);
