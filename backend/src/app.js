@@ -135,6 +135,7 @@ app.post("/api/login", async (req, res) => {
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+app.use("/assets", express.static(path.join(__dirname, "../assets")));
 
 // Servir HTML
 app.get("/registro.html", (req, res) => {
@@ -158,9 +159,6 @@ app.get("/main.js", (req, res) => {
   res.sendFile(path.join(__dirname, "../main.js"));
 });
 
-app.listen(PORT, () => {
-  console.log(`Servidor escuchando en http://localhost:${PORT}`);
-});
 
 
 
@@ -208,4 +206,9 @@ app.get("/api/buscar-proveedores", async (req, res) => {
     console.error(err);
     res.status(500).json({ ok: false, error: "Error al buscar proveedores" });
   }
+});
+
+
+app.listen(PORT, () => {
+  console.log(`Servidor escuchando en http://localhost:${PORT}`);
 });
