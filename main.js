@@ -241,6 +241,29 @@ function initCarousel() {
 
 
 
+function setupHeroSearch() {
+  const form = document.querySelector(".hero-search");
+  if (!form) return;
+
+  const qInput = document.getElementById("search-q");
+  const whereInput = document.getElementById("search-where");
+
+  form.addEventListener("submit", () => {
+    const q = encodeURIComponent((qInput?.value || "").trim());
+    const where = encodeURIComponent((whereInput?.value || "").trim());
+
+    // manda a la página de proveedores con los filtros
+    window.location.href = `/proveedores.html?q=${q}&where=${where}`;
+  });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  setupHeroSearch();
+});
+
+
+
+
 
 /*
 function pintarUsuarios() {

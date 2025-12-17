@@ -1,21 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@300;400;600;700&family=Righteous&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Proveedores | SiQuiero.es</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@300;400;600;700&family=Righteous&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
 </head>
+
 <body>
-    
-    <header class="site-header">
+  <header class="site-header">
     <div class="header-left">
-    <div class="logo">
-  <a href="index.html"><img src="assets/LogoGuay.png" alt="logo SiQuiero.es" class="logo-img"></a> 
-</div>
+      <div class="logo">
+        <a href="index.html">
+          <img src="assets/LogoGuay.png" alt="logo SiQuiero.es" class="logo-img">
+        </a>
+      </div>
+
       <nav class="main-nav">
         <a href="#" class="nav-link">Mi boda</a>
         <a href="proveedores.html" class="nav-link">Proveedores</a>
@@ -28,189 +31,122 @@
 
     <div class="header-right">
       <a href="login.html" class="auth-link">Accede</a>
-  <a href="registro.html" class="auth-link auth-link--primary">Regístrate</a>
+      <a href="registro.html" class="auth-link auth-link--primary">Regístrate</a>
     </div>
   </header>
-    <main>
+
+   <main class="page-proveedores">
+   
+     <!-- CATEGORÍAS -->
+    <section class="wedding-summary">
+
+      <div class="summary-grid-lugares">
+        <article class="summary-card-lugares summary-card--wide">
+          <div class="circle-img"><img src="assets/fotografo.jpg" alt="Fotografía"></div>
+          <h3>Fotografía</h3>
+        </article>
+
+        <article class="summary-card-lugares summary-card--wide">
+          <div class="circle-img"><img src="assets/musica.jpg" alt="Música"></div>
+          <h3>Música</h3>
+        </article>
+
+        <article class="summary-card-lugares summary-card--wide">
+          <div class="circle-img"><img src="assets/coche.jpg" alt="Coche de boda"></div>
+          <h3>Coche de boda</h3>
+        </article>
+
+        <article class="summary-card-lugares summary-card--wide">
+          <div class="circle-img"><img src="assets/catering.jpg" alt="Catering"></div>
+          <h3>Catering</h3>
+        </article>
+
+        <article class="summary-card-lugares summary-card--wide">
+          <div class="circle-img"><img src="assets/tarjetas.jpg" alt="Invitaciones"></div>
+          <h3>Invitaciones</h3>
+        </article>
+
+        <article class="summary-card-lugares summary-card--wide">
+          <div class="circle-img"><img src="assets/decoracion.jpg" alt="Decoración"></div>
+          <h3>Decoración</h3>
+          
+        </article>
+
+        <article class="summary-card-lugares summary-card--wide">
+          <div class="circle-img"><img src="assets/tarta.jpg" alt="Tartas"></div>
+          <h3>Tartas</h3>
+        </article>
+      </div>
+    </section>
+ 
+    <!-- HERO -->
     <section class="hero">
       <div class="hero-left">
         <h1>Proveedores</h1>
 
-        <form class="hero-search" onsubmit="return false;">
+        <form class="hero-search">
           <div class="search-field">
             <span class="search-icon">🔍</span>
-            <input type="text" placeholder="Busca por categoría" />
+            <input id="search-q" type="text" placeholder="Busca por nombre o categoría" />
           </div>
+
           <div class="search-field">
             <span class="search-label">en</span>
-            <input type="text" placeholder="Dónde" />
+            <input id="search-where" type="text" placeholder="Dónde" />
           </div>
+
           <button type="submit" class="btn-primary">Buscar</button>
         </form>
       </div>
     </section>
 
-
-    <section class="wedding-summary">
-  <h2>Busca proveedores por categoría para tu boda</h2>
-
-  <div class="summary-grid-lugares">
-
-    
-    <article class="summary-card-lugares summary-card--wide">
-      <div class="circle-img">
-            <img src="assets/fotografo.jpg" alt="Madrid">
-        </div>
-        <h3>Fotografía</h3>
-      <p>4.120 proveedores</p>
-    </article>
-
-    <article class="summary-card-lugares summary-card--wide">
-        <div class="circle-img">
-            <img src="assets/musica.jpg" alt="Madrid">
-        </div>
-      <h3>Música</h3>
-      <p>3.652 proveedores</p>
-    </article>
-
-    <article class="summary-card-lugares summary-card--wide">
-        <div class="circle-img">
-            <img src="assets/coche.jpg" alt="Madrid">
-        </div>
-      <h3>Coche de boda</h3>
-      <p>4.321 proveedores</p>
-    </article>
-
-    <article class="summary-card-lugares summary-card--wide">
-        <div class="circle-img">
-            <img src="assets/catering.jpg" alt="Madrid">
-        </div>
-      <h3>Catering</h3>
-      <p>3.260 proveedores</p>
-    </article>
-
-    <article class="summary-card-lugares summary-card--wide">
-        <div class="circle-img">
-            <img src="assets/tarjetas.jpg" alt="Madrid">
-        </div>
-      <h3>Invitaciones de boda</h3>
-      <p>1.396 proveedores</p>
-    </article>
-
-    <article class="summary-card-lugares summary-card--wide">
-        <div class="circle-img">
-            <img src="assets/decoracion.jpg" alt="Madrid">
-        </div>
-      <h3>Decoración</h3>
-      <p>2.932 proveedores</p>
-    </article>
-
-    <article class="summary-card-lugares summary-card--wide">
-        <div class="circle-img">
-            <img src="assets/tarta.jpg" alt="Madrid">
-        </div>
-      <h3>Tartas</h3>
-      <p>2.630 proveedores</p>
-    </article>
-
-    
-    </div>
-    <div class="contenedorProveedores">
-
-  <main class="listado">
-
-    <article class="proveedor">
-      <img src="assets/alteugust.jpg" alt="">
-      <div class="info">
-        <h2>Al Teu Gust</h2>
-        <p class="ubicacion">Valencia</p>
-        <p class="descripcion">
-La calidad, el sabor, la elaboración y la presentación de los productos de Al Teu Gust es lo que los hace inconfundibles. Cuentan con un equipo de profesionales altamente cualificado, dispuesto siempre a atender y ofrecer menús originales, diferentes y exquisitos.        </p>
-        <p class="precio">Desde 70€</p>
-        <a href="#" class="boton">Solicitar Presupuesto</a>
-      </div>
-    </article>
-
-    <article class="proveedor">
-      <img src="assets/clasicos.jpg" alt="">
-      <div class="info">
-        <h2>Clásicos Escribano</h2>
-        <p class="ubicacion">Valencia</p>
-        <p class="descripcion">
-En la provincia de Valencia y sus alrededores, el servicio de alquiler de coches clásicos con chófer para bodas ofrece una experiencia única y memorable para las parejas que desean hacer de su día especial algo realmente extraordinario.        </p>
-        <p class="precio">Desde 400€</p>
-        <a href="#" class="boton">Solicitar Presupuesto</a>
-      </div>
-    </article>
-
-    <article class="proveedor">
-      <img src="assets/monjour.jpg" alt="">
-      <div class="info">
-        <h2>Monjour</h2>
-        <p class="ubicacion">Valencia</p>
-        <p class="descripcion">
-Especializados en el diseño, organización y montaje de bodas de principio a fin. Desde la búsqueda del lugar perfecto para realizar el evento hasta el más mínimo detalle que marcará la diferencia en ese día tan especial.        </p>
-        <p class="precio">Desde 700€</p>
-        <a href="#" class="boton">Solicitar Presupuesto</a>
-      </div>
-    </article>
-
-    <article class="proveedor">
-      <img src="assets/origamoon.jpg" alt="">
-      <div class="info">
-        <h2>Origamoon</h2>
-        <p class="ubicacion">Valencia</p>
-        <p class="descripcion">
-Origamoon es un estudio creativo especializado en elaborar invitaciones totalmente personalizadas y únicas, con sobres artesanales de orgami fabricados a mano.</p>
-        <p class="precio">Desde 1,50€</p>
-        <a href="#" class="boton">Solicitar Presupuesto</a>
-      </div>
-    </article>
-
-  </main>
-</div>
-
-  </main>
-</div>
-    </main>
-     <footer class="site-footer">
-  <div class="footer-content">
-    
    
-    <div class="footer-column">
-      <h4>SiQuiero.es</h4>
-      <p>Tu plataforma para encontrar proveedores y organizar tu boda de forma sencilla.</p>
-    </div>
 
    
 
-    
-    <div class="footer-column">
-      <h5>Ayuda</h5>
-      <ul>
-        <li><a href="#">Preguntas frecuentes</a></li>
-        <li><a href="#">Contacto</a></li>
-        <li><a href="#">Privacidad</a></li>
-        <li><a href="#">Términos y condiciones</a></li>
-      </ul>
-    </div>
+    <!-- RESULTADOS -->
+    <section class="contenedorProveedores">
+      <div class="resultados-header">
+        <p id="proveedores-info"></p>
+      </div>
 
-    
+      <div id="proveedores-list"></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-content">
       <div class="footer-column">
-      <h5>Síguenos en</h5>
-      <div class="footer-social">
-        <img src="assets/insta.png" alt="logo de instagram">
-        <img src="assets/linkedin.png" alt="logo de linkedin">
-       <img src="assets/facebook (2).png" alt="logo de facebook">
+        <h4>SiQuiero.es</h4>
+        <p>Tu plataforma para encontrar proveedores y organizar tu boda de forma sencilla.</p>
+      </div>
+
+      <div class="footer-column">
+        <h5>Ayuda</h5>
+        <ul>
+          <li><a href="#">Preguntas frecuentes</a></li>
+          <li><a href="#">Contacto</a></li>
+          <li><a href="#">Privacidad</a></li>
+          <li><a href="#">Términos y condiciones</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-column">
+        <h5>Síguenos en</h5>
+        <div class="footer-social">
+          <img src="assets/insta.png" alt="logo de instagram">
+          <img src="assets/linkedin.png" alt="logo de linkedin">
+          <img src="assets/facebook (2).png" alt="logo de facebook">
+        </div>
       </div>
     </div>
 
-  </div>
+    <div class="footer-bottom">
+      <p>© 2025 SiQuiero.es — Todos los derechos reservados</p>
+    </div>
+  </footer>
 
-  <div class="footer-bottom">
-    <p>© 2025 SiQuiero.es — Todos los derechos reservados</p>
-  </div>
-</footer>
-<script src="main.js" defer></script>
+  <script src="main.js" defer></script>
+  <script src="proveedores.js" defer></script>
 </body>
 </html>

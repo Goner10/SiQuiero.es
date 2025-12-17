@@ -164,3 +164,48 @@ app.listen(PORT, () => {
 
 
 
+app.get("/api/buscar-proveedores", async (req, res) => {
+  const q = (req.query.q || "").trim();        // nombre/categoría
+  const where = (req.query.where || "").trim(); // ciudad/ubicación
+
+  try {
+    let sql = `
+      SELECT 
+        p.id_proveedor,
+        p.nombre_comercial,
+        p.ubicacion,
+        p.descripcion,
+        p.tarifa_minima,
+        p.tarifa_maxima,
+        c.nombre_categoria
+      FROM proveedor p
+      JOIN categoria c ON c.id_categoria = p.id_categoria
+      WHERE 1=1
+    `;
+
+    const params = [];
+
+    if (q) {
+      const like = `%${q}%`;
+      sql += ` AND (
+        p.nombre_comercial LIKE ? OR
+        p.descripcion LIKE ? OR
+        c.nombre_categoria LIKE ?
+      )`;
+      params.push(like, like, like);
+    }
+
+    if (where) {
+      sql += ` AND (p.ubicacion LIKE ?)`;
+      params.push(`%${where}%`);
+    }
+
+    sql += ` ORDER BY p.id_proveedor DESC LIMIT 200`;
+
+    const [rows] = await pool.query(sql, params);
+    res.json({ ok: true, data: rows });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ ok: false, error: "Error al buscar proveedores" });
+  }
+});

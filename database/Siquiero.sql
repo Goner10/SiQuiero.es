@@ -105,6 +105,7 @@ CREATE TABLE `proveedor` (
   `id_proveedor` int NOT NULL AUTO_INCREMENT,
   `id_categoria` int NOT NULL,
   `nombre_comercial` varchar(105) NOT NULL,
+  `ubicacion` varchar(105) DEFAULT NULL,
   `descripcion` longtext,
   `telefono` varchar(15) DEFAULT NULL,
   `email` varchar(45) DEFAULT NULL,
