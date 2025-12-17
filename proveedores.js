@@ -185,5 +185,26 @@ function imgParaProveedor(p) {
   const index = id % PROVEEDOR_IMGS.length;
   return PROVEEDOR_IMGS[index] || IMG_FALLBACK;
 }
+const cards = document.querySelectorAll(".summary-card-lugares");
+
+  cards.forEach(card => {
+    card.addEventListener("click", () => {
+      const categoria = card.dataset.categoria;
+
+      if (!categoria) return;
+
+      // Limpia inputs visualmente
+      const qInput = document.getElementById("search-q");
+      const whereInput = document.getElementById("search-where");
+      if (qInput) qInput.value = categoria;
+      if (whereInput) whereInput.value = "";
+
+      // Lanza búsqueda
+      runSearch({
+        q: categoria,
+        where: ""
+      });
+    });
+  });
 
 document.addEventListener("DOMContentLoaded", setupBuscadorProveedores);

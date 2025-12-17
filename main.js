@@ -126,6 +126,10 @@ function actualizarHeader() {
     userIcon.style.fontSize = "1.5rem";
     userIcon.style.cursor = "pointer";
 
+    userIcon.addEventListener("click", () => {
+    window.location.href = "/usuario.html";
+    });
+
     const logoutBtn = document.createElement("button");
     logoutBtn.textContent = "Cerrar sesión";
     logoutBtn.style.marginLeft = "1rem";
