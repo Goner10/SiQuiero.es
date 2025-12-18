@@ -403,6 +403,125 @@ app.post("/api/bodas/:id_boda/invitados", async (req, res) => {
   }
 });
 
+
+
+app.get("/api/bodas/:id_boda/presupuesto", async (req, res) => {
+  const id_boda = Number(req.params.id_boda);
+  if (!Number.isFinite(id_boda)) {
+    return res.status(400).json({ ok: false, error: "id_boda inválido" });
+  }
+
+  try {
+    const [rows] = await pool.query(
+      `SELECT id_presupuesto, concepto, cantidad_estimada, cantidad_real
+       FROM presupuesto
+       WHERE id_boda = ?
+       ORDER BY id_presupuesto`,
+      [id_boda]
+    );
+
+    res.json({ ok: true, presupuesto: rows });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ ok: false, error: "Error obteniendo presupuesto" });
+  }
+});
+
+
+app.patch("/api/presupuesto/:id_presupuesto", async (req, res) => {
+  const id_presupuesto = Number(req.params.id_presupuesto);
+  if (!Number.isFinite(id_presupuesto)) {
+    return res.status(400).json({ ok: false, error: "id_presupuesto inválido" });
+  }
+
+  const { cantidad_real, cantidad_estimada } = req.body;
+
+  // Permite actualizar uno o ambos campos
+  const cr = (cantidad_real === "" || cantidad_real === null || cantidad_real === undefined)
+    ? null
+    : Number(cantidad_real);
+
+  const ce = (cantidad_estimada === "" || cantidad_estimada === null || cantidad_estimada === undefined)
+    ? null
+    : Number(cantidad_estimada);
+
+  if ((cr !== null && !Number.isFinite(cr)) || (ce !== null && !Number.isFinite(ce))) {
+    return res.status(400).json({ ok: false, error: "Valores numéricos inválidos" });
+  }
+
+  try {
+    const [result] = await pool.query(
+      `UPDATE presupuesto
+       SET cantidad_real = COALESCE(?, cantidad_real),
+           cantidad_estimada = COALESCE(?, cantidad_estimada)
+       WHERE id_presupuesto = ?`,
+      [cr, ce, id_presupuesto]
+    );
+
+    res.json({ ok: true, updated: result.affectedRows });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ ok: false, error: "Error actualizando presupuesto" });
+  }
+});
+
+
+app.post("/api/bodas/:id_boda/presupuesto", async (req, res) => {
+  const id_boda = Number(req.params.id_boda);
+  if (!Number.isFinite(id_boda)) {
+    return res.status(400).json({ ok: false, error: "id_boda inválido" });
+  }
+
+  const { concepto } = req.body;
+  if (!concepto || !String(concepto).trim()) {
+    return res.status(400).json({ ok: false, error: "Concepto obligatorio" });
+  }
+
+  try {
+    // evita duplicados por boda
+    const [exists] = await pool.query(
+      `SELECT 1 FROM presupuesto WHERE id_boda = ? AND concepto = ? LIMIT 1`,
+      [id_boda, String(concepto).trim()]
+    );
+
+    if (exists.length) {
+      return res.json({ ok: true, alreadyExists: true });
+    }
+
+    const [result] = await pool.query(
+      `INSERT INTO presupuesto (id_boda, concepto, cantidad_estimada, cantidad_real)
+       VALUES (?, ?, NULL, NULL)`,
+      [id_boda, String(concepto).trim()]
+    );
+
+    res.json({ ok: true, id_presupuesto: result.insertId });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ ok: false, error: "Error añadiendo concepto" });
+  }
+});
+
+app.delete("/api/presupuesto/:id_presupuesto", async (req, res) => {
+  const id_presupuesto = Number(req.params.id_presupuesto);
+  if (!Number.isFinite(id_presupuesto)) {
+    return res.status(400).json({ ok: false, error: "id_presupuesto inválido" });
+  }
+
+  try {
+    const [result] = await pool.query(
+      "DELETE FROM presupuesto WHERE id_presupuesto = ?",
+      [id_presupuesto]
+    );
+
+    res.json({ ok: true, deleted: result.affectedRows });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ ok: false, error: "Error eliminando concepto" });
+  }
+});
+
+
+
 app.listen(PORT, () => {
   console.log(`Servidor escuchando en http://localhost:${PORT}`);
 });

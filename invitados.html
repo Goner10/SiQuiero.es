@@ -33,29 +33,33 @@
   </header>
 
 
-
-
+<main>
 
     <section class="wedding-summary">
+       <button class="btn-back-dashboard" id="btn-back-dashboard">
+  ← Volver a mi boda
+</button>
  
   <h2>Invitados</h2>
    
-  <div class="summary-grid-lugares">
-   
- <p id="invitados-info" class="muted"></p>
- 
+  <div class="invitados-layout">
+  <!-- Columna izquierda -->
+  <aside class="invitados-side">
+    <article class="summary-card summary-card--wide invitados-add" onclick="location.href='anadirInvitados.html'">
+      <h3>Añade tus invitados</h3>
+      <p>Importálos desde tus contactos, tu email o Excel. También puedes añadirlos uno a uno.</p>
+    </article>
+  </aside>
 
-<div>
-  <article class="summary-card summary-card--wide" onclick="location.href='anadirInvitados.html'">
-    <h3>Añade tus invitados</h3>
-    <p>Importálos desde tus contactos, tu email o Excel. También puedes añadirlos uno a uno.</p>
-  </article>
+  <!-- Columna derecha -->
+  <section class="invitados-main">
+    <p id="invitados-info" class="muted"></p>
+    <div id="invitados-list" class="invitados-list"></div>
+  </section>
 </div>
 
-<div id="invitados-list" class="invitados-list"></div>
-
 </section>
-
+</main>
 
 
 
