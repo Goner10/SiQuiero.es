@@ -276,6 +276,7 @@ function setupHeroSearch() {
   if (!form) return;
 
   if (window.location.pathname.includes("novias.html")) return;
+  if (window.location.pathname.includes("novios.html")) return;
 
   const qInput = document.getElementById("search-q");
   const whereInput = document.getElementById("search-where");
