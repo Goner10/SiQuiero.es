@@ -1,70 +1,65 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro</title>
     <link rel="stylesheet" href="styles.css">
-
+    <title>Document</title>
 </head>
 <body>
 
- <header class="site-header">
+     <header class="site-header">
     <div class="header-left">
     <div class="logo">
- <a href="index.html"><img src="assets/LogoGuay.png" alt="logo SiQuiero.es" class="logo-img"></a> 
+  <a href="index.html"><img src="assets/LogoGuay.png" alt="logo SiQuiero.es" class="logo-img"></a> 
 </div>
       <nav class="main-nav">
-        <a href="login.html" class="nav-link nav-link--active">Mi boda</a>
+        <a href="miBoda.html" class="nav-link">Mi boda</a>
         <a href="proveedores.html" class="nav-link">Proveedores</a>
         <a href="lugares.html" class="nav-link">Lugares</a>
         <a href="novias.html" class="nav-link">Novias</a>
         <a href="#" class="nav-link">Novios</a>
-        
       </nav>
     </div>
-
     <div class="header-right">
       <a href="login.html" class="auth-link">Accede</a>
   <a href="registro.html" class="auth-link auth-link--primary">Regístrate</a>
     </div>
   </header>
 
- <div class="register-container">
-    <h2>Regístrate</h2>
-    <form id="register-form">
-      
-      <input type="text" name="nombre" placeholder="Nombre " required>
+<main>
+    <button class="btn-back-dashboard" id="btn-back-dashboard">
+  ← Volver a mi boda
+</button>
+  <h2>Tu presupuesto</h2>
+  <div class="presupuesto-toolbar">
+  <select id="nuevo-concepto">
+    <option value="">Añadir concepto…</option>
+    <option value="Lugar">Lugar</option>
+    <option value="Catering">Catering</option>
+    <option value="Fotografía y vídeo">Fotografía y vídeo</option>
+    <option value="Música">Música</option>
+    <option value="Decoración">Decoración</option>
+  </select>
+  <button id="btn-add-concepto" class="btn-primary" type="button">Añadir</button>
+</div>
+
+    <p id="presupuesto-info" class="muted"></p>
     
-      
-      <input type="text" name="apellidos" placeholder="Apellidos" required>
+    <div id="presupuesto-list" class="presupuesto-list"></div>
 
-      
-      <input type="email" name="email" placeholder="Email" required>
-
-      
-      <input type="password" name="password" placeholder="Contraseña" required>
-
-      
-      <input type="tel" name="telefono" placeholder="Teléfono" required>
-
-      <button type="submit">Registrarse</button>
-      <p id="register-msg"></p>
-    </form>
-  </div>
-
-   <footer class="site-footer">
-  <div class="footer-content">
     
+    </main>
+    
+    
+    <footer class="site-footer">
+    <div class="footer-content">
    
     <div class="footer-column">
       <h4>SiQuiero.es</h4>
       <p>Tu plataforma para encontrar proveedores y organizar tu boda de forma sencilla.</p>
     </div>
 
-   
-
-   
     <div class="footer-column">
       <h5>Ayuda</h5>
       <ul>
@@ -74,17 +69,15 @@
         <li><a href="#">Términos y condiciones</a></li>
       </ul>
     </div>
-
     
     <div class="footer-column">
       <h5>Síguenos en</h5>
       <div class="footer-social">
-        <a href="#">📸 Instagram</a>
-        <a href="#">💼 LinkedIn</a>
-        <a href="#">📘 Facebook</a>
+        <img src="assets/insta.png" alt="logo de instagram">
+        <img src="assets/linkedin.png" alt="logo de linkedin">
+       <img src="assets/facebook (2).png" alt="logo de facebook">
       </div>
     </div>
-
   </div>
 
   <div class="footer-bottom">
@@ -92,6 +85,9 @@
   </div>
 </footer>
 
-<script src="main.js"></script>
-  </body>
+
+
+    <script src="main.js"></script>
+    <script src="presupuesto.js"></script>
+</body>
 </html>

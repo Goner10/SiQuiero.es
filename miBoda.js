@@ -63,10 +63,10 @@ function renderDashboard({ usuarioNombre, boda, resumen }) {
           <h3>${usuarioNombre}</h3>
           <p class="summary-date">${fechaTxt}</p>
           <div class="summary-countdown" id="countdown">
-            <div><strong>${c.days}</strong><span>días</span></div>
-            <div><strong>${c.hours}</strong><span>horas</span></div>
-            <div><strong>${c.mins}</strong><span>min</span></div>
-            <div><strong>${c.secs}</strong><span>s</span></div>
+            <div>${c.days}</strong><span>días</span></div>
+            <div>${c.hours}</strong><span>horas</span></div>
+            <div>${c.mins}</strong><span>min</span></div>
+            <div>${c.secs}</strong><span>s</span></div>
           </div>
         </div>
 

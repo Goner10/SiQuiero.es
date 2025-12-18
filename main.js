@@ -2,6 +2,32 @@ document.addEventListener("DOMContentLoaded", () => {
   //pintarUsuarios();
   actualizarHeader();
   marcarNavActivo();
+
+ const btn = document.getElementById("btn-back-dashboard");
+if (btn) {
+  btn.addEventListener("click", async () => {
+    try {
+      const usuario = JSON.parse(localStorage.getItem("usuarioLogueado"));
+      if (!usuario) {
+        window.location.href = "/login.html";
+        return;
+      }
+
+      const res = await fetch(`http://localhost:3001/api/bodas/mia/${usuario.id_usuario}`);
+      const data = await res.json();
+
+      if (!data.ok || !data.boda) {
+        window.location.href = "/miBoda.html";
+        return;
+      }
+
+      window.location.href = `/miBoda.html?id_boda=${data.boda.id_boda}`;
+    } catch (e) {
+      console.error(e);
+      window.location.href = "/miBoda.html";
+    }
+  });
+}
   
   const bienvenida = document.getElementById("welcome-msg");
   const usuario = JSON.parse(localStorage.getItem("usuarioLogueado"));
@@ -268,80 +294,3 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-
-/*
-function pintarUsuarios() {
-  // Creamos una sección debajo del h1
-  const section = document.createElement("section");
-  const title = document.createElement("h2");
-  title.textContent = "Usuarios registrados:";
-  section.appendChild(title);
-
-  const info = document.createElement("p");
-  info.textContent = "Cargando usuarios...";
-  section.appendChild(info);
-
-  document.body.appendChild(section);
-
-  fetch("http://localhost:3001/api/usuarios")
-    .then(res => res.json())
-    .then(usuarios => {
-      if (!Array.isArray(usuarios) || usuarios.length === 0) {
-        info.textContent = "No hay usuarios para mostrar.";
-        return;
-      }
-
-      info.remove(); // quitamos el "Cargando usuarios..."
-
-      const ul = document.createElement("ul");
-      usuarios.forEach(u => {
-        const li = document.createElement("li");
-        li.textContent = `${u.nombre} ${u.apellidos} — ${u.email}`;
-        ul.appendChild(li);
-      });
-
-      section.appendChild(ul);
-    })
-    .catch(err => {
-      console.error("Error usuarios:", err);
-      info.textContent = "Error cargando usuarios.";
-    });
-}
-
-*/ 
-
-/*
- FUTURO: Cargar proveedores destacados desde la BD
-=============================================
-
-async function cargarProveedoresDestacados() {
-  const res = await fetch("http://localhost:3001/api/proveedores/destacados");
-  const data = await res.json();
-
-  const track = document.querySelector(".carousel-track");
-  track.innerHTML = ""; // limpiar las cards estáticas
-
-  data.proveedores.forEach(p => {
-    const card = document.createElement("article");
-    card.classList.add("carousel-card");
-
-    card.innerHTML = `
-      <div class="carousel-card-image">
-        <img src="${p.imagen_url}" alt="${p.nombre}">
-      </div>
-      <div class="carousel-card-body">
-        <h3>${p.nombre}</h3>
-        <p class="carousel-card-category">${p.categoria}</p>
-        <p class="carousel-card-rating">⭐ ${p.rating} · ${p.num_opiniones} opiniones</p>
-      </div>
-    `;
-
-    track.appendChild(card);
-  });
-
-  // Re-inicializar carrusel porque ahora tiene nuevas cards
-  initCarousel();
-}
-
-
-*/ 

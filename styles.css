@@ -1116,7 +1116,7 @@ main {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  margin: 16px 0 40px;
+  margin: 0 0 40px;
   
 }
 #invitados-info{
@@ -1162,3 +1162,140 @@ main {
 }
 
 .muted { color: #666; }
+
+.invitados-layout {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  gap: 18px;
+  align-items: start;
+  margin-top: 12px;
+}
+
+.invitados-side {
+  position: relative;
+}
+
+.invitados-main {
+   margin-top: -84px;
+}
+
+#invitados-info {
+  margin: 0 0 10px;
+  color: var(--primary-dark);
+  font-weight: 700;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .invitados-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+
+
+
+
+/* PRESUPUESTO */
+
+.presupuesto-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 16px 0 40px;
+}
+
+.presupuesto-item {
+  background: #fff;
+  border: 1.5px solid var(--primary);
+  border-radius: 14px;
+  padding: 14px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+}
+
+.presupuesto-item h3 {
+  margin: 0 0 6px;
+}
+
+.presupuesto-real {
+  text-align: right;
+}
+.presupuesto-input {
+  width: 140px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  text-align: right;
+}
+
+.presupuesto-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(94, 224, 137, 0.25);
+}
+
+.save-hint {
+  display: block;
+  margin-top: 6px;
+  min-height: 16px;
+}
+.presupuesto-toolbar {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin: 14px 0;
+}
+
+.presupuesto-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.btn-save {
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  color: #fff;
+  background: var(--primary);
+  cursor: pointer;
+  font-weight: 700;
+}
+.btn-delete {
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: #fff;
+  cursor: pointer;
+}
+.btn-delete:hover {
+  filter: brightness(0.95);
+}
+
+
+/* BOTON VOLVER DASHBOARD */ 
+
+.btn-back-dashboard {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 18px 0;
+  padding: 10px 16px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--primary);
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.btn-back-dashboard:hover {
+  background: #f7f7f7;
+  transform: translateY(-1px);
+}
