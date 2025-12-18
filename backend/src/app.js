@@ -150,6 +150,15 @@ app.get("/index.html", (req, res) => {
   res.sendFile(path.join(__dirname, "../index.html"));
 });
 
+app.get("/miBoda.html", (req, res) => {
+  res.sendFile(path.join(__dirname, "../miBoda.html"));
+});
+
+// Servir JS extra
+app.get("/miBoda.js", (req, res) => {
+  res.sendFile(path.join(__dirname, "../miBoda.js"));
+});
+
 // Servir CSS y JS
 app.get("/styles.css", (req, res) => {
   res.sendFile(path.join(__dirname, "../styles.css"));
@@ -208,6 +217,127 @@ app.get("/api/buscar-proveedores", async (req, res) => {
   }
 });
 
+app.post("/api/bodas", async (req, res) => {
+  const { id_usuario, fecha_evento, ubicacion, num_invitados, nombre_evento, presupuesto_total } = req.body;
+
+  if (!id_usuario || !fecha_evento || !nombre_evento) {
+    return res.status(400).json({ ok: false, error: "Faltan campos obligatorios" });
+  }
+
+  const conn = await pool.getConnection();
+  try {
+    await conn.beginTransaction();
+
+    const [result] = await conn.query(
+      `INSERT INTO boda (id_usuario, fecha_evento, ubicacion, num_invitados, nombre_evento, presupuesto_total)
+       VALUES (?, ?, ?, ?, ?, ?)`,
+      [id_usuario, fecha_evento, ubicacion ?? null, num_invitados ?? null, nombre_evento, presupuesto_total ?? null]
+    );
+
+    const id_boda = result.insertId;
+
+    // Seed base (puedes ajustar nombres)
+    const conceptos = [
+      "Lugar",
+      "Catering",
+      "Fotografía y vídeo",
+      "Música",
+      "Decoración",
+    ];
+
+    // Inserta solo si no hay aún presupuesto para esa boda
+    const [exists] = await conn.query(
+      "SELECT 1 FROM presupuesto WHERE id_boda = ? LIMIT 1",
+      [id_boda]
+    );
+
+    if (exists.length === 0) {
+      const values = conceptos.map((c) => [id_boda, c, null, null]);
+      await conn.query(
+        `INSERT INTO presupuesto (id_boda, concepto, cantidad_estimada, cantidad_real)
+         VALUES ?`,
+        [values]
+      );
+    }
+
+    await conn.commit();
+    res.json({ ok: true, id_boda });
+  } catch (err) {
+    await conn.rollback();
+    console.error(err);
+    res.status(500).json({ ok: false, error: "Error creando boda" });
+  } finally {
+    conn.release();
+  }
+});
+
+app.get("/api/bodas/mia/:id_usuario", async (req, res) => {
+  const id_usuario = Number(req.params.id_usuario);
+  if (!Number.isFinite(id_usuario)) {
+    return res.status(400).json({ ok: false, error: "id_usuario inválido" });
+  }
+
+  try {
+    const [rows] = await pool.query(
+      `SELECT *
+       FROM boda
+       WHERE id_usuario = ?
+       ORDER BY id_boda DESC
+       LIMIT 1`,
+      [id_usuario]
+    );
+
+    res.json({ ok: true, boda: rows[0] || null });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ ok: false, error: "Error obteniendo boda" });
+  }
+});
+
+app.get("/api/bodas/:id_boda/resumen", async (req, res) => {
+  const id_boda = Number(req.params.id_boda);
+  if (!Number.isFinite(id_boda)) {
+    return res.status(400).json({ ok: false, error: "id_boda inválido" });
+  }
+
+  try {
+    const [[serv]] = await pool.query(
+      `SELECT COUNT(*) AS total
+       FROM reserva
+       WHERE id_boda = ?`,
+      [id_boda]
+    );
+
+    const [[invTotal]] = await pool.query(
+      `SELECT COUNT(*) AS total
+       FROM invitado
+       WHERE id_boda = ?`,
+      [id_boda]
+    );
+
+    const [[pres]] = await pool.query(
+      `SELECT COALESCE(SUM(COALESCE(cantidad_real,0)),0) AS gastado
+       FROM presupuesto
+       WHERE id_boda = ?`,
+      [id_boda]
+    );
+
+    res.json({
+      ok: true,
+      resumen: {
+        serviciosContratados: serv.total,
+        invitadosTotal: invTotal.total,
+        invitadosConfirmados: 0, // si tienes columna de confirmación, se ajusta
+        presupuestoGastado: Number(pres.gastado),
+        tareasCompletadas: 0,
+        tareasTotal: 0
+      }
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ ok: false, error: "Error obteniendo resumen" });
+  }
+});
 
 app.listen(PORT, () => {
   console.log(`Servidor escuchando en http://localhost:${PORT}`);
