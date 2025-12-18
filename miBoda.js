@@ -63,10 +63,10 @@ function renderDashboard({ usuarioNombre, boda, resumen }) {
           <h3>${usuarioNombre}</h3>
           <p class="summary-date">${fechaTxt}</p>
           <div class="summary-countdown" id="countdown">
-            <div>${c.days}</strong><span>días</span></div>
-            <div>${c.hours}</strong><span>horas</span></div>
-            <div>${c.mins}</strong><span>min</span></div>
-            <div>${c.secs}</strong><span>s</span></div>
+            <div>${c.days}<span>días</span></div>
+            <div>${c.hours}<span>horas</span></div>
+            <div>${c.mins}<span>min</span></div>
+            <div>${c.secs}<span>s</span></div>
           </div>
         </div>
 
@@ -95,6 +95,39 @@ function renderDashboard({ usuarioNombre, boda, resumen }) {
         </div>
       </div>
     </section>
+     <div id="dashboard-cards"></div>
+
+  <!-- BLOQUE BONITO debajo de cards -->
+  <section class="boda-extra">
+    <div class="boda-extra-left">
+      <h3>Tu boda, paso a paso</h3>
+      <p class="muted">
+        Organiza cada detalle, controla tu presupuesto y encuentra proveedores y lugares ideales para tu gran día.
+      </p>
+
+      <div class="boda-shortcuts">
+        <a class="shortcut-circle" href="proveedores.html" title="Ir a proveedores">
+          <span class="circle-img">
+            <img src="assets/fotografo.jpg" alt="Proveedores">
+          </span>
+          <span>Proveedores</span>
+        </a>
+
+        <a class="shortcut-circle" href="lugares.html" title="Ir a lugares">
+          <span class="circle-img">
+            <img src="assets/proveedores/p13.jpg" alt="Lugares">
+          </span>
+          <span>Lugares</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="boda-extra-right">
+      <img src="assets/boheme.jpg" alt="Boda" class="boda-extra-img">
+    </div>
+  </section>
+
+</section>
   `;
 
   // Actualiza countdown cada segundo
