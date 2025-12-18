@@ -10,18 +10,19 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header class="site-header">
+
+  <header class="site-header">
     <div class="header-left">
     <div class="logo">
   <a href="index.html"><img src="assets/LogoGuay.png" alt="logo SiQuiero.es" class="logo-img"></a> 
 </div>
       <nav class="main-nav">
-        <a href="#" class="nav-link">Mi boda</a>
+        <a href="miBoda.html" class="nav-link">Mi boda</a>
         <a href="proveedores.html" class="nav-link">Proveedores</a>
         <a href="lugares.html" class="nav-link">Lugares</a>
         <a href="novias.html" class="nav-link">Novias</a>
         <a href="#" class="nav-link">Novios</a>
-        <a href="#" class="nav-link">Comunidad</a>
+
       </nav>
     </div>
 
@@ -30,33 +31,34 @@
   <a href="registro.html" class="auth-link auth-link--primary">Regístrate</a>
     </div>
   </header>
+
+
+
+
+
     <section class="wedding-summary">
  
-  <main>
   <h2>Invitados</h2>
    
   <div class="summary-grid-lugares">
+   
+ <p id="invitados-info" class="muted"></p>
+ 
 
-    
-    <article class="summary-card summary-card--wide">
-      <h3>Añade tus invitados</h3>
-      <p>Importálos desde tus contactos, tu email o Excel. También puedes añadirlos uno a uno.</p>
-    </article>
+<div>
+  <article class="summary-card summary-card--wide" onclick="location.href='anadirInvitados.html'">
+    <h3>Añade tus invitados</h3>
+    <p>Importálos desde tus contactos, tu email o Excel. También puedes añadirlos uno a uno.</p>
+  </article>
+</div>
 
-    <article class="summary-card summary-card--wide">
-      <h3>Agrúpalos</h3>
-      <p><a href="anadirInvitados.html">Crear distintos grupos y organiza las mesas fácilmente.</a></p>
-    </article>
-
-    <article class="summary-card summary-card--wide">
-      <h3>Pide confirmación o asistencia</h3>
-      <p>Conoce en todo momento quién ha confirmado desde la web de la boda.</p>
-    </article>
-
-   </div> 
+<div id="invitados-list" class="invitados-list"></div>
 
 </section>
-</main>
+
+
+
+
 <footer class="site-footer">
   <div class="footer-content">
     
@@ -66,9 +68,7 @@
       <p>Tu plataforma para encontrar proveedores y organizar tu boda de forma sencilla.</p>
     </div>
 
-   
-
-   
+  
     <div class="footer-column">
       <h5>Ayuda</h5>
       <ul>
@@ -79,7 +79,6 @@
       </ul>
     </div>
 
-    
     <div class="footer-column">
       <h5>Síguenos en</h5>
       <div class="footer-social">
@@ -97,5 +96,6 @@
 </footer>
 
     <script src="main.js" defer></script>
+<script src="invitados.js" defer></script>
 </body>
 </html>

@@ -167,6 +167,13 @@ app.get("/styles.css", (req, res) => {
 app.get("/main.js", (req, res) => {
   res.sendFile(path.join(__dirname, "../main.js"));
 });
+app.get("/anadirInvitados.html", (req, res) => {
+  res.sendFile(path.join(__dirname, "../anadirInvitados.html"));
+});
+
+app.get("/anadirInvitados.js", (req, res) => {
+  res.sendFile(path.join(__dirname, "../anadirInvitados.js"));
+});
 
 
 
@@ -308,8 +315,10 @@ app.get("/api/bodas/:id_boda/resumen", async (req, res) => {
       [id_boda]
     );
 
-    const [[invTotal]] = await pool.query(
-      `SELECT COUNT(*) AS total
+    const [[inv]] = await pool.query(
+      `SELECT 
+         COUNT(*) AS total,
+         COALESCE(SUM(CASE WHEN confirmacion_asistencia = 1 THEN 1 ELSE 0 END), 0) AS confirmados
        FROM invitado
        WHERE id_boda = ?`,
       [id_boda]
@@ -325,10 +334,10 @@ app.get("/api/bodas/:id_boda/resumen", async (req, res) => {
     res.json({
       ok: true,
       resumen: {
-        serviciosContratados: serv.total,
-        invitadosTotal: invTotal.total,
-        invitadosConfirmados: 0, // si tienes columna de confirmación, se ajusta
-        presupuestoGastado: Number(pres.gastado),
+        serviciosContratados: Number(serv.total || 0),
+        invitadosTotal: Number(inv.total || 0),
+        invitadosConfirmados: Number(inv.confirmados || 0),
+        presupuestoGastado: Number(pres.gastado || 0),
         tareasCompletadas: 0,
         tareasTotal: 0
       }
@@ -336,6 +345,61 @@ app.get("/api/bodas/:id_boda/resumen", async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({ ok: false, error: "Error obteniendo resumen" });
+  }
+});
+
+app.get("/api/bodas/:id_boda/invitados", async (req, res) => {
+  const id_boda = Number(req.params.id_boda);
+  if (!Number.isFinite(id_boda)) {
+    return res.status(400).json({ ok: false, error: "id_boda inválido" });
+  }
+
+  try {
+    const [rows] = await pool.query(
+      `SELECT id_invitado, nombre, email, telefono, confirmacion_asistencia
+       FROM invitado
+       WHERE id_boda = ?
+       ORDER BY id_invitado DESC`,
+      [id_boda]
+    );
+
+    res.json({ ok: true, invitados: rows });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ ok: false, error: "Error obteniendo invitados" });
+  }
+});
+
+
+app.post("/api/bodas/:id_boda/invitados", async (req, res) => {
+  const id_boda = Number(req.params.id_boda);
+  if (!Number.isFinite(id_boda)) {
+    return res.status(400).json({ ok: false, error: "id_boda inválido" });
+  }
+
+  const { nombre, email, telefono, confirmacion_asistencia } = req.body;
+
+  if (!nombre || !String(nombre).trim()) {
+    return res.status(400).json({ ok: false, error: "El nombre es obligatorio" });
+  }
+
+  try {
+    const [result] = await pool.query(
+      `INSERT INTO invitado (id_boda, nombre, email, telefono, confirmacion_asistencia)
+       VALUES (?, ?, ?, ?, ?)`,
+      [
+        id_boda,
+        String(nombre).trim(),
+        email ? String(email).trim() : null,
+        telefono ? String(telefono).trim() : null,
+        Number(confirmacion_asistencia) === 1 ? 1 : 0
+      ]
+    );
+
+    res.json({ ok: true, id_invitado: result.insertId });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ ok: false, error: "Error creando invitado" });
   }
 });
 

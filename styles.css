@@ -1108,3 +1108,57 @@ main {
     height: 180px;
   }
 }
+
+
+/* INVITADOS */
+
+.invitados-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 16px 0 40px;
+  
+}
+#invitados-info{
+  color: var(--primary-dark);
+}
+
+.invitado-card {
+  background: #fff;
+  border: 1.5px solid var(--primary);
+  border-radius: 14px;
+  padding: 14px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+}
+
+.invitado-card h3 {
+  margin: 0 0 6px;
+  font-size: 1.05rem;
+}
+
+.invitado-contacto {
+  margin: 0;
+  color: #666;
+  font-size: 0.95rem;
+}
+
+.badge {
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  border: 1px solid var(--border);
+}
+
+.badge-ok {
+  background: rgba(94, 224, 137, 0.18);
+}
+
+.badge-pend {
+  background: rgba(224, 229, 224, 0.55);
+}
+
+.muted { color: #666; }
