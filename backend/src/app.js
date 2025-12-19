@@ -45,7 +45,22 @@ app.get("/api/test-db", async (req, res) => {
   }
 });
 
+app.get("/api/contador-lugares", async (req, res) => {
+  try {
+    const [rows] = await pool.query(`
+      SELECT 
+        SUBSTRING_INDEX(ubicacion, ',', -1) AS ciudad,
+        COUNT(*) AS total
+      FROM lugar
+      GROUP BY ciudad
+    `);
 
+    res.json({ ok: true, data: rows });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ ok: false, error: "Error contando lugares" });
+  }
+});
 
 
 //Ruta para pintar los usuario registrados
@@ -221,6 +236,49 @@ app.get("/api/buscar-proveedores", async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({ ok: false, error: "Error al buscar proveedores" });
+  }
+});
+app.get("/api/buscar-lugares", async (req, res) => {
+  const q = (req.query.q || "").trim();        // nombre / tipo
+  const where = (req.query.where || "").trim(); // ciudad / zona
+
+  try {
+    let sql = `
+      SELECT 
+        l.id_lugar,
+        l.nombre,
+        l.ubicacion,
+        l.descripcion,
+        l.precio_minimo,
+        l.tipo
+      FROM lugar l
+      WHERE 1=1
+    `;
+
+    const params = [];
+
+    if (q) {
+      const like = `%${q}%`;
+      sql += ` AND (
+        l.nombre LIKE ? OR
+        l.descripcion LIKE ? OR
+        l.tipo LIKE ?
+      )`;
+      params.push(like, like, like);
+    }
+
+    if (where) {
+      sql += ` AND l.ubicacion LIKE ?`;
+      params.push(`%${where}%`);
+    }
+
+    sql += ` ORDER BY l.id_lugar DESC LIMIT 200`;
+
+    const [rows] = await pool.query(sql, params);
+    res.json({ ok: true, data: rows });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ ok: false, error: "Error al buscar lugares" });
   }
 });
 

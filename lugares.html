@@ -1,274 +1,178 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@300;400;600;700&family=Righteous&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lugares para boda | SiQuiero.es</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@300;400;600;700&family=Righteous&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
-    
-    <header class="site-header">
-    <div class="header-left">
+
+<header class="site-header">
+  <div class="header-left">
     <div class="logo">
-  <a href="index.html"><img src="assets/LogoGuay.png" alt="logo SiQuiero.es" class="logo-img"></a> 
-</div>
-      <nav class="main-nav">
-        <a href="#" class="nav-link">Mi boda</a>
-        <a href="proveedores.html" class="nav-link">Proveedores</a>
-        <a href="lugares.html" class="nav-link">Lugares</a>
-        <a href="novias.html" class="nav-link">Novias</a>
-        <a href="#" class="nav-link">Novios</a>
-        
-      </nav>
+      <a href="index.html">
+        <img src="assets/LogoGuay.png" alt="SiQuiero.es" class="logo-img">
+      </a>
     </div>
 
-    <div class="header-right">
-      <a href="login.html" class="auth-link">Accede</a>
-  <a href="registro.html" class="auth-link auth-link--primary">Regístrate</a>
-    </div>
-  </header>
-  <main>
-    <!-- HERO principal -->
-    <section class="hero">
-      <div class="hero-left">
-        <h1>Lugares para boda</h1>
+    <nav class="main-nav">
+      <a href="miBoda.html" class="nav-link">Mi boda</a>
+      <a href="proveedores.html" class="nav-link">Proveedores</a>
+      <a href="lugares.html" class="nav-link nav-link--active">Lugares</a>
+      <a href="novias.html" class="nav-link">Novias</a>
+      <a href="novios.html" class="nav-link">Novios</a>
+    </nav>
+  </div>
 
-        <form class="hero-search" onsubmit="return false;">
-          <div class="search-field">
-            <span class="search-icon">🔍</span>
-            <input type="text" placeholder="Busca por categoría" />
-          </div>
-          <div class="search-field">
-            <span class="search-label">en</span>
-            <input type="text" placeholder="Dónde" />
-          </div>
-          <button type="submit" class="btn-primary">Buscar</button>
-        </form>
-      </div>
-    </section>
+  <div class="header-right">
+    <a href="login.html" class="auth-link">Accede</a>
+    <a href="registro.html" class="auth-link auth-link--primary">Regístrate</a>
+  </div>
+</header>
 
+<main class="page-lugares">
 
-    <section class="wedding-summary">
-  <h2>Banquetes por zona</h2>
+  <!-- HERO -->
+  
 
-  <div class="summary-grid-lugares">
+  <!-- CIUDADES -->
+  <section class="wedding-summary">
+    <div class="summary-grid-lugares">
 
-    
-    <article class="summary-card-lugares summary-card--wide">
-      <div class="circle-img">
-            <img src="assets/madrid.jpg" alt="Madrid">
-        </div>
+      <article class="summary-card-lugares" data-where="Madrid">
+        <div class="circle-img"><img src="assets/lugares/madrid.jpg" alt="Madrid"></div>
         <h3>Madrid</h3>
-      <p>430 Banquetes</p>
-    </article>
+        <p><span class="contador-ciudad" data-ciudad="Madrid">0</span> Lugares</p>
+      </article>
 
-    <article class="summary-card-lugares summary-card--wide">
-        <div class="circle-img">
-            <img src="assets/valencia.jpg" alt="Madrid">
-        </div>
-      <h3>Valencia</h3>
-      <p>260 Banquetes</p>
-    </article>
+      <article class="summary-card-lugares" data-where="Valencia">
+        <div class="circle-img"><img src="assets/lugares/valencia.jpg" alt="Valencia"></div>
+        <h3>Valencia</h3>
+        <p><span class="contador-ciudad" data-ciudad="Valencia">0</span> Lugares</p>
+      </article>
 
-    <article class="summary-card-lugares summary-card--wide">
-        <div class="circle-img">
-            <img src="assets/barcelona.jpg" alt="Madrid">
-        </div>
-      <h3>Barcelona</h3>
-      <p>480 Banquetes</p>
-    </article>
+      <article class="summary-card-lugares" data-where="Barcelona">
+        <div class="circle-img"><img src="assets/lugares/barcelona.jpg" alt="Barcelona"></div>
+        <h3>Barcelona</h3>
+        <p><span class="contador-ciudad" data-ciudad="Barcelona">0</span> Lugares</p>
+      </article>
 
-    <article class="summary-card-lugares summary-card--wide">
-        <div class="circle-img">
-            <img src="assets/sevilla.jpg" alt="Madrid">
-        </div>
-      <h3>Sevilla</h3>
-      <p>320 Banquetes</p>
-    </article>
+      <article class="summary-card-lugares" data-where="Sevilla">
+        <div class="circle-img"><img src="assets/lugares/sevilla.jpg" alt="Sevilla"></div>
+        <h3>Sevilla</h3>
+        <p><span class="contador-ciudad" data-ciudad="Sevilla">0</span> Lugares</p>
+      </article>
 
-    <article class="summary-card-lugares summary-card--wide">
-        <div class="circle-img">
-            <img src="assets/murcia.jpg" alt="Madrid">
-        </div>
-      <h3>Murcia</h3>
-      <p>180 Banquetes</p>
-    </article>
+      <article class="summary-card-lugares" data-where="Murcia">
+        <div class="circle-img"><img src="assets/lugares/murcia.jpg" alt="Murcia"></div>
+        <h3>Murcia</h3>
+        <p><span class="contador-ciudad" data-ciudad="Murcia">0</span> Lugares</p>
+      </article>
 
-    <article class="summary-card-lugares summary-card--wide">
-        <div class="circle-img">
-            <img src="assets/alicante.jpg" alt="Madrid">
-        </div>
-      <h3>Alicante</h3>
-      <p>230 Banquetes</p>
-    </article>
+      <article class="summary-card-lugares" data-where="Alicante">
+        <div class="circle-img"><img src="assets/lugares/alicante.jpg" alt="Alicante"></div>
+        <h3>Alicante</h3>
+        <p><span class="contador-ciudad" data-ciudad="Alicante">0</span> Lugares</p>
+      </article>
 
-    <article class="summary-card-lugares summary-card--wide">
-        <div class="circle-img">
-            <img src="assets/granada.jpg" alt="Madrid">
-        </div>
-      <h3>Granada</h3>
-      <p>210 Banquetes</p>
-    </article>
+      <article class="summary-card-lugares" data-where="Granada">
+        <div class="circle-img"><img src="assets/lugares/granada.jpg" alt="Granada"></div>
+        <h3>Granada</h3>
+        <p><span class="contador-ciudad" data-ciudad="Granada">0</span> Lugares</p>
+      </article>
 
-    <article class="summary-card-lugares summary-card--wide">
-        <div class="circle-img">
-            <img src="assets/cadiz.jpg" alt="Madrid">
-        </div>
-      <h3>Cádiz</h3>
-      <p>190 Banquetes</p>
-    </article>
+      <article class="summary-card-lugares" data-where="Cadiz">
+        <div class="circle-img"><img src="assets/lugares/cadiz.jpg" alt="Cádiz"></div>
+        <h3>Cádiz</h3>
+        <p><span class="contador-ciudad" data-ciudad="Cádiz">0</span> Lugares</p>
+      </article>
 
-    <article class="summary-card-lugares summary-card--wide">
-        <div class="circle-img">
-            <img src="assets/oviedo.jpg" alt="Madrid">
-        </div>
-      <h3>Oviedo</h3>
-      <p>210 Banquetes</p>
-    </article>
+      <article class="summary-card-lugares" data-where="Oviedo">
+        <div class="circle-img"><img src="assets/lugares/oviedo.jpg" alt="Oviedo"></div>
+        <h3>Oviedo</h3>
+        <p><span class="contador-ciudad" data-ciudad="Oviedo">0</span> Lugares</p>
+      </article>
 
-    <article class="summary-card-lugares summary-card--wide">
-        <div class="circle-img">
-            <img src="assets/zaragoza.jpg" alt="Madrid">
-        </div>
-      <h3>Zaragoza</h3>
-      <p>90 Banquetes</p>
-    </article>
+      <article class="summary-card-lugares" data-where="Zaragoza">
+        <div class="circle-img"><img src="assets/lugares/zaragoza.jpg" alt="Zaragoza"></div>
+        <h3>Zaragoza</h3>
+        <p><span class="contador-ciudad" data-ciudad="Zaragoza">0</span> Lugares</p>
+      </article>
 
     </div>
-    <div class="contenedorLugares">
+  </section>
+  <section class="hero">
+    <div class="hero-left">
+      <h1>Lugares para boda</h1>
 
-  <!-- Filtros -->
-  <aside class="filtros">
-    <h3>Lugares para boda</h3>
+      <!-- Buscador (oculto por CSS pero funcional) -->
+      <form class="hero-search">
+        <div class="search-field">
+          <span class="search-icon">🔍</span>
+          <input type="text" placeholder="Busca por categoría">
+        </div>
+        <div class="search-field">
+          <span class="search-label">en</span>
+          <input type="text" placeholder="Dónde">
+        </div>
+        <button type="submit" class="btn-primary">Buscar</button>
+      </form>
+    </div>
+  </section>
 
-    <label><input type="checkbox"> Fincas</label>
-    <label><input type="checkbox"> Masías</label>
-    <label><input type="checkbox"> Hoteles</label>
-    <label><input type="checkbox"> Restaurantes</label>
-    <label><input type="checkbox"> Salones de boda</label>
-    <label><input type="checkbox"> Bodegas</label>
-    <label><input type="checkbox"> Bodas en la playa</label>
+  <!-- RESULTADOS -->
+  <section class="contenedorLugares">
+    <div class="resultados-header">
+      <p id="lugares-info"></p>
+    </div>
 
-    <br>
-
-    <h3>Precio de menú por persona</h3>
-
-    <label><input type="checkbox"> Menos de 50€</label>
-    <label><input type="checkbox"> 50€ - 70€</label>
-    <label><input type="checkbox"> 70€ - 90€</label>
-    <label><input type="checkbox"> 90€ - 110€</label>
-    <label><input type="checkbox"> 110€ - 130€</label>
-    <label><input type="checkbox"> 130€ - 150€</label>
-    <label><input type="checkbox"> Más de 150€</label>
-
-    <br>
-
-    <h3>Número de invitados</h3>
-
-    <label><input type="checkbox"> 0 - 99</label>
-    <label><input type="checkbox"> 100 - 199</label>
-    <label><input type="checkbox"> 200 - 299</label>
-    <label><input type="checkbox"> 300 - 399</label>
-    <label><input type="checkbox"> + 400</label>
-
-  </aside>
-
-  <!-- Listado -->
-  <main class="listado">
-
-    <article class="lugar">
-      <img src="assets/campoanibal.jpg" alt="">
-      <div class="info">
-        <h2>Masía Campo Aníbal</h2>
-        <p class="ubicacion">El Puig, Valencia</p>
-        <p class="descripcion">Un lugar idílico con preciosos jardines, con cocina propia y con elegantes interiores</p>
-        <p class="precio">Desde 100€</p>
-        <a href="#" class="boton">Solicitar Presupuesto</a>
-      </div>
-    </article>
-
-    <article class="lugar">
-      <img src="assets/vistalegre.jpg" alt="">
-      <div class="info">
-        <h2>Vistalegre</h2>
-        <p class="ubicacion">Bétera, Valencia</p>
-        <p class="descripcion">
-          Amplios interiores decorados con gusto y elegancia, así como cuidadas zonas exteriores que acogerán cada momento de la fiesta.
-        </p>
-        <p class="precio">Desde 110€</p>
-        <a href="#" class="boton">Solicitar Presupuesto</a>
-      </div>
-    </article>
-    <article class="lugar">
-      <img src="assets/sanantonio.jpg" alt="">
-      <div class="info">
-        <h2>Masía San Antonio de Poyo</h2>
-        <p class="ubicacion">Riba-roja De Túria, Valencia</p>
-        <p class="descripcion">
-Esta masía valenciana del siglo XVIII se encuentra rodeada de naranjos a los que se accede desde un patio interior en el que podréis celebrar vuestro aperitivo o ceremonia civil.        </p>
-        <p class="precio">Desde 105€</p>
-        <a href="#" class="boton">Solicitar Presupuesto</a>
-      </div>
-    </article>
-    <article class="lugar">
-      <img src="assets/nouraco.jpg" alt="">
-      <div class="info">
-        <h2>Nou Racó</h2>
-        <p class="ubicacion">Valencia</p>
-        <p class="descripcion">
-         Cada uno de los salones y estancias del complejo pueden presumir de estar en contacto con la naturaleza, en comunión con la vegetación y la fauna propia del parque Natural de la Albufera.
-        </p>
-        <p class="precio">Desde 85€</p>
-        <a href="#" class="boton">Solicitar Presupuesto</a>
-      </div>
-    </article>
-
-  </main>
-</div>
+    <div id="lugares-list"></div>
+  </section>
 
 </main>
 
-     <footer class="site-footer">
-  <div class="footer-content">
-    
-   
-    <div class="footer-column">
-      <h4>SiQuiero.es</h4>
-      <p>Tu plataforma para encontrar proveedores y organizar tu boda de forma sencilla.</p>
-    </div>
-
-   
-
-   
-    <div class="footer-column">
-      <h5>Ayuda</h5>
-      <ul>
-        <li><a href="#">Preguntas frecuentes</a></li>
-        <li><a href="#">Contacto</a></li>
-        <li><a href="#">Privacidad</a></li>
-        <li><a href="#">Términos y condiciones</a></li>
-      </ul>
-    </div>
+<footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-column">
+        <h4>SiQuiero.es</h4>
+        <p>Tu plataforma para encontrar proveedores y organizar tu boda de forma sencilla.</p>
+      </div>
 
       <div class="footer-column">
-      <h5>Síguenos en</h5>
-      <div class="footer-social">
-        <img src="assets/insta.png" alt="logo de instagram">
-        <img src="assets/linkedin.png" alt="logo de linkedin">
-       <img src="assets/facebook (2).png" alt="logo de facebook">
+        <h5>Ayuda</h5>
+        <ul>
+          <li><a href="#">Preguntas frecuentes</a></li>
+          <li><a href="#">Contacto</a></li>
+          <li><a href="#">Privacidad</a></li>
+          <li><a href="#">Términos y condiciones</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-column">
+        <h5>Síguenos en</h5>
+        <div class="footer-social">
+          <img src="assets/insta.png" alt="logo de instagram">
+          <img src="assets/linkedin.png" alt="logo de linkedin">
+          <img src="assets/facebook (2).png" alt="logo de facebook">
+        </div>
       </div>
     </div>
 
-  </div>
+    <div class="footer-bottom">
+      <p>© 2025 SiQuiero.es — Todos los derechos reservados</p>
+    </div>
+  </footer>
 
-  <div class="footer-bottom">
-    <p>© 2025 SiQuiero.es — Todos los derechos reservados</p>
-  </div>
-</footer>
+<!-- JS -->
+<script src="lugares.js" defer></script>
 <script src="main.js" defer></script>
+
 </body>
 </html>
