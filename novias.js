@@ -1,33 +1,41 @@
 const API_BASE = "http://localhost:3001";
 let isSearching = false;
 
-// Mapeo de imágenes por categoría (id_categoria)
-const IMAGENES_POR_CATEGORIA_NOVIA = {
-  6: ["assets/novias/trajes1.jpg", "assets/novias/trajes2.jpg"], // Trajes de novia
-  7: ["assets/novias/zapatos1.jpg", "assets/novias/zapatos2.jpg"], // Zapatos
-  8: ["assets/novias/complementos1.jpg", "assets/novias/complementos2.jpg"], // Complementos
-  9: ["assets/novias/joyeria1.jpg", "assets/novias/joyeria2.jpg"], // Joyería
-  10: ["assets/novias/belleza1.jpg", "assets/novias/belleza2.jpg"], // Maquillaje y peluquería
+// Imágenes por id de proveedor
+const NOVIA_IMG_OVERRIDES = {
+  43: "assets/novias/traje1.jpg",       // La Bohème 1994
+  44: "assets/novias/traje2.jpg",       // NBlanc Novies
+  45: "assets/novias/traje3.jpg",       // Innupcial
+  46: "assets/novias/traje4.jpg",       // Sedka Novias
+  47: "assets/novias/traje5.jpg",      // Art Nupcial
+  48: "assets/novias/zapatos1.jpg",    // Paco Gil
+  49: "assets/novias/zapatos2.jpg",    // Miss Honolulu Shoes
+  50: "assets/novias/zapatos3.jpg",    // Larranga Shoes
+  51: "assets/novias/zapatos4.jpg",    // Uniqshoes
+  52: "assets/novias/complementos1.jpg",
+  53: "assets/novias/complementos2.jpg",
+  54: "assets/novias/complementos3.jpg",
+  55: "assets/novias/complementos4.jpg",
+  56: "assets/novias/joyeria1.jpg",    // Bardisa Atelier
+  57: "assets/novias/joyeria2.jpg",    // De Dios Joyas
+  58: "assets/novias/joyeria3.jpg",    // Eme Jewels
+  59: "assets/novias/joyeria4.jpg",    // Irene Zaera
+  60: "assets/novias/joyeria5.jpg",    // Vazón
+  61: "assets/novias/belleza1.jpg",    // El tocador de Jesús Sáez
+  62: "assets/novias/belleza2.jpg",    // Goa Makeup
+  63: "assets/novias/belleza3.jpg",    // Natalia Anaya
+  64: "assets/novias/belleza4.jpg",    // Clara Muñoz
+  74: "assets/novios/complementos5.jpg",  // Botones de Plata (joyería compartida)
 };
 
-// Obtener query params
-function getQueryParams() {
-  const params = new URLSearchParams(window.location.search);
-  return {
-    q: (params.get("q") || "").trim(),
-    where: (params.get("where") || "").trim(),
-  };
+function imgParaNovia(p) {
+  const id = Number(p.id_proveedor);
+  return NOVIA_IMG_OVERRIDES[id] || "assets/novias/default.jpg";
 }
 
-function setQueryParams({ q, where }) {
-  const params = new URLSearchParams();
-  if (q) params.set("q", q);
-  if (where) params.set("where", where);
-  const newUrl = window.location.pathname + (params.toString() ? "?" + params.toString() : "");
-  window.history.replaceState({}, "", newUrl);
-}
-
-// Limpiar resultados
+/* =============================
+   UI Helpers
+============================= */
 function clearResultadosUI() {
   const cont = document.getElementById("proveedores-list");
   const info = document.getElementById("proveedores-info");
@@ -35,14 +43,6 @@ function clearResultadosUI() {
   if (info) info.textContent = "";
 }
 
-// Obtener imagen según id_categoria y posición
-function imgParaNovia(p, index) {
-  const catImgs = IMAGENES_POR_CATEGORIA_NOVIA[p.id_categoria];
-  if (!catImgs || catImgs.length === 0) return "assets/default.jpg";
-  return catImgs[index % catImgs.length];
-}
-
-// Renderizar proveedores
 function renderNovias(items) {
   const cont = document.getElementById("proveedores-list");
   const info = document.getElementById("proveedores-info");
@@ -51,8 +51,8 @@ function renderNovias(items) {
   if (info) info.textContent = `${items.length} resultados para novia`;
 
   cont.innerHTML = items
-    .map((p, i) => {
-      const img = imgParaNovia(p, i);
+    .map((p) => {
+      const img = imgParaNovia(p);
       return `
         <article class="proveedor">
           <img class="proveedor-img" src="${img}" alt="${p.nombre_comercial}" loading="lazy">
@@ -69,16 +69,24 @@ function renderNovias(items) {
     .join("");
 }
 
-// Buscar proveedores desde API
+/* =============================
+   API
+============================= */
 async function buscarServiciosNovia({ q, where }) {
-  const url = `${API_BASE}/api/buscar-proveedores?q=${encodeURIComponent(q)}&where=${encodeURIComponent(where)}`;
+  const url = `${API_BASE}/api/buscar-proveedores?q=${encodeURIComponent(
+    q
+  )}&where=${encodeURIComponent(where)}`;
   const res = await fetch(url);
   const data = await res.json();
+
   if (!data.ok) throw new Error(data.error || "Error al buscar servicios para novia");
+
   return data.data;
 }
 
-// Ejecutar búsqueda
+/* =============================
+   Search flow
+============================= */
 async function runSearch({ q, where }) {
   if (isSearching) return;
   isSearching = true;
@@ -104,25 +112,44 @@ async function runSearch({ q, where }) {
   }
 }
 
-// Inicializar buscador
+function getQueryParams() {
+  const params = new URLSearchParams(window.location.search);
+  return {
+    q: (params.get("q") || "").trim(),
+    where: (params.get("where") || "").trim(),
+  };
+}
+
+function setQueryParams({ q, where }) {
+  const params = new URLSearchParams();
+  if (q) params.set("q", q);
+  if (where) params.set("where", where);
+
+  const newUrl =
+    window.location.pathname + (params.toString() ? "?" + params.toString() : "");
+  window.history.replaceState({}, "", newUrl);
+}
+
+/* =============================
+   Init
+============================= */
 function setupBuscadorNovias() {
   const form = document.querySelector(".hero-search");
   if (!form) return;
 
   const qInput = document.getElementById("search-q");
   const whereInput = document.getElementById("search-where");
-  const initial = getQueryParams();
 
+  const initial = getQueryParams();
   if (qInput) qInput.value = initial.q;
   if (whereInput) whereInput.value = initial.where;
 
   form.addEventListener("submit", (e) => {
     e.preventDefault();
     e.stopPropagation();
-    runSearch({ q: (qInput?.value || "").trim(), where: (whereInput?.value || "").trim() });
+    runSearch({ q: qInput.value.trim(), where: whereInput.value.trim() });
   });
 
-  // Click en tarjetas de categorías
   const cards = document.querySelectorAll(".summary-card-lugares");
   cards.forEach((card) => {
     card.addEventListener("click", () => {

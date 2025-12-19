@@ -1,30 +1,27 @@
 const API_BASE = "http://localhost:3001";
 let isSearching = false;
 
-// Para trajes y complementos de novio (ID categoria = 11 y 12)
-const NOVIO_IMGS = {
-  "Trajes de novio": "assets/novios/trajes.jpg",
-  "Complementos de novio": "assets/novios/complementos.jpg",
-  "Joyería": "assets/novias/joyeria.jpg"
+const NOVIO_IMG_OVERRIDES = {
+  65: "assets/novios/traje1.jpg",    // Félix Ramiro
+  66: "assets/novios/traje2.jpg",    // Innupcial
+  67: "assets/novios/traje3.jpg",    // Sastrería Casanova
+  68: "assets/novios/traje4.jpg",    // Roma Hombre
+  69: "assets/novios/traje5.jpg",    // Paco Roca
+  70: "assets/novios/complementos1.jpg",  // Protocolo
+  71: "assets/novios/complementos2.jpg",  // Minerva & Co
+  72: "assets/novios/complementos3.jpg",  // Fósforo Square
+  73: "assets/novios/complementos4.jpg",  // Mr. Pajarita
+  74: "assets/novios/complementos5.jpg",  // Botones de Plata (joyería compartida)
 };
 
-function getQueryParams() {
-  const params = new URLSearchParams(window.location.search);
-  return {
-    q: (params.get("q") || "").trim(),
-    where: (params.get("where") || "").trim(),
-  };
+function imgParaNovio(p) {
+  const id = Number(p.id_proveedor);
+  return NOVIO_IMG_OVERRIDES[id] || "assets/novios/default.jpg";
 }
 
-function setQueryParams({ q, where }) {
-  const params = new URLSearchParams();
-  if (q) params.set("q", q);
-  if (where) params.set("where", where);
-
-  const newUrl = window.location.pathname + (params.toString() ? "?" + params.toString() : "");
-  window.history.replaceState({}, "", newUrl);
-}
-
+/* =============================
+   UI Helpers
+============================= */
 function clearResultadosUI() {
   const cont = document.getElementById("proveedores-list");
   const info = document.getElementById("proveedores-info");
@@ -41,7 +38,7 @@ function renderNovios(items) {
 
   cont.innerHTML = items
     .map((p) => {
-      const img = NOVIO_IMGS[p.nombre_categoria] || "assets/novios/trajes.jpg";
+      const img = imgParaNovio(p);
       return `
         <article class="proveedor">
           <img class="proveedor-img" src="${img}" alt="${p.nombre_comercial}" loading="lazy">
@@ -58,14 +55,24 @@ function renderNovios(items) {
     .join("");
 }
 
+/* =============================
+   API
+============================= */
 async function buscarServiciosNovio({ q, where }) {
-  const url = `${API_BASE}/api/buscar-proveedores?q=${encodeURIComponent(q)}&where=${encodeURIComponent(where)}`;
+  const url = `${API_BASE}/api/buscar-proveedores?q=${encodeURIComponent(
+    q
+  )}&where=${encodeURIComponent(where)}`;
   const res = await fetch(url);
   const data = await res.json();
+
   if (!data.ok) throw new Error(data.error || "Error al buscar servicios para novio");
+
   return data.data;
 }
 
+/* =============================
+   Search flow
+============================= */
 async function runSearch({ q, where }) {
   if (isSearching) return;
   isSearching = true;
@@ -91,6 +98,27 @@ async function runSearch({ q, where }) {
   }
 }
 
+function getQueryParams() {
+  const params = new URLSearchParams(window.location.search);
+  return {
+    q: (params.get("q") || "").trim(),
+    where: (params.get("where") || "").trim(),
+  };
+}
+
+function setQueryParams({ q, where }) {
+  const params = new URLSearchParams();
+  if (q) params.set("q", q);
+  if (where) params.set("where", where);
+
+  const newUrl =
+    window.location.pathname + (params.toString() ? "?" + params.toString() : "");
+  window.history.replaceState({}, "", newUrl);
+}
+
+/* =============================
+   Init
+============================= */
 function setupBuscadorNovios() {
   const form = document.querySelector(".hero-search");
   if (!form) return;
@@ -113,7 +141,6 @@ function setupBuscadorNovios() {
     card.addEventListener("click", () => {
       const categoria = card.dataset.categoria;
       if (!categoria) return;
-
       if (qInput) qInput.value = categoria;
       if (whereInput) whereInput.value = "";
       runSearch({ q: categoria, where: "" });
