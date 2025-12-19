@@ -115,6 +115,44 @@ h1, h2, h3, h4 {
 
 
 
+/* PERFIL USUARIO */
+
+.user-profile {
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+.user-card {
+  background: #fff;
+  border: 1px solid var(--primary);
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+}
+
+.user-avatar {
+  font-size: 3rem;
+  background: #f3f4f6;
+  border-radius: 999px;
+  width: 72px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.user-info p {
+  margin: 6px 0;
+}
+
+
+
+
+
 /* MAIN LAYOUT */
 
 main {

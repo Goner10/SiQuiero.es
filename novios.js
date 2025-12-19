@@ -1,36 +1,22 @@
 const API_BASE = "http://localhost:3001";
 let isSearching = false;
 
-// Imágenes por id de proveedor
-const NOVIA_IMG_OVERRIDES = {
-  43: "assets/novias/traje1.jpg",       // La Bohème 1994
-  44: "assets/novias/traje2.jpg",       // NBlanc Novies
-  45: "assets/novias/traje3.jpg",       // Innupcial
-  46: "assets/novias/traje4.jpg",       // Sedka Novias
-  47: "assets/novias/traje5.jpg",      // Art Nupcial
-  48: "assets/novias/zapatos1.jpg",    // Paco Gil
-  49: "assets/novias/zapatos2.jpg",    // Miss Honolulu Shoes
-  50: "assets/novias/zapatos3.jpg",    // Larranga Shoes
-  51: "assets/novias/zapatos4.jpg",    // Uniqshoes
-  52: "assets/novias/complementos1.jpg",
-  53: "assets/novias/complementos2.jpg",
-  54: "assets/novias/complementos3.jpg",
-  55: "assets/novias/complementos4.jpg",
-  56: "assets/novias/joyeria1.jpg",    // Bardisa Atelier
-  57: "assets/novias/joyeria2.jpg",    // De Dios Joyas
-  58: "assets/novias/joyeria3.jpg",    // Eme Jewels
-  59: "assets/novias/joyeria4.jpg",    // Irene Zaera
-  60: "assets/novias/joyeria5.jpg",    // Vazón
-  61: "assets/novias/belleza1.jpg",    // El tocador de Jesús Sáez
-  62: "assets/novias/belleza2.jpg",    // Goa Makeup
-  63: "assets/novias/belleza3.jpg",    // Natalia Anaya
-  64: "assets/novias/belleza4.jpg",    // Clara Muñoz
+const NOVIO_IMG_OVERRIDES = {
+  65: "assets/novios/traje1.jpg",    // Félix Ramiro
+  66: "assets/novios/traje2.jpg",    // Innupcial
+  67: "assets/novios/traje3.jpg",    // Sastrería Casanova
+  68: "assets/novios/traje4.jpg",    // Roma Hombre
+  69: "assets/novios/traje5.jpg",    // Paco Roca
+  70: "assets/novios/complementos1.jpg",  // Protocolo
+  71: "assets/novios/complementos2.jpg",  // Minerva & Co
+  72: "assets/novios/complementos3.jpg",  // Fósforo Square
+  73: "assets/novios/complementos4.jpg",  // Mr. Pajarita
   74: "assets/novios/complementos5.jpg",  // Botones de Plata (joyería compartida)
 };
 
-function imgParaNovia(p) {
+function imgParaNovio(p) {
   const id = Number(p.id_proveedor);
-  return NOVIA_IMG_OVERRIDES[id] || "assets/novias/default.jpg";
+  return NOVIO_IMG_OVERRIDES[id] || "assets/novios/default.jpg";
 }
 
 /* =============================
@@ -43,23 +29,23 @@ function clearResultadosUI() {
   if (info) info.textContent = "";
 }
 
-function renderNovias(items) {
+function renderNovios(items) {
   const cont = document.getElementById("proveedores-list");
   const info = document.getElementById("proveedores-info");
   if (!cont) return;
 
-  if (info) info.textContent = `${items.length} resultados para novia`;
+  if (info) info.textContent = `${items.length} resultados para novio`;
 
   cont.innerHTML = items
     .map((p) => {
-      const img = imgParaNovia(p);
+      const img = imgParaNovio(p);
       return `
         <article class="proveedor">
           <img class="proveedor-img" src="${img}" alt="${p.nombre_comercial}" loading="lazy">
           <div class="info">
             <h2>${p.nombre_comercial}</h2>
             <p class="ubicacion">${p.ubicacion ?? "Ubicación no indicada"}</p>
-            <p class="descripcion">${p.descripcion ?? "Especialistas en servicios para novia"}</p>
+            <p class="descripcion">${p.descripcion ?? "Especialistas en servicios para novio"}</p>
             <p class="precio">Desde ${p.tarifa_minima ?? "-"}€</p>
             <a href="proveedor.html?id=${p.id_proveedor}" class="boton">Ver detalles</a>
           </div>
@@ -72,14 +58,14 @@ function renderNovias(items) {
 /* =============================
    API
 ============================= */
-async function buscarServiciosNovia({ q, where }) {
+async function buscarServiciosNovio({ q, where }) {
   const url = `${API_BASE}/api/buscar-proveedores?q=${encodeURIComponent(
     q
   )}&where=${encodeURIComponent(where)}`;
   const res = await fetch(url);
   const data = await res.json();
 
-  if (!data.ok) throw new Error(data.error || "Error al buscar servicios para novia");
+  if (!data.ok) throw new Error(data.error || "Error al buscar servicios para novio");
 
   return data.data;
 }
@@ -100,13 +86,13 @@ async function runSearch({ q, where }) {
   setQueryParams({ q, where });
 
   try {
-    const items = await buscarServiciosNovia({ q, where });
-    renderNovias(items);
+    const items = await buscarServiciosNovio({ q, where });
+    renderNovios(items);
   } catch (err) {
     console.error(err);
     clearResultadosUI();
     const info = document.getElementById("proveedores-info");
-    if (info) info.textContent = "No se pudieron cargar los servicios de novia";
+    if (info) info.textContent = "No se pudieron cargar los servicios de novio";
   } finally {
     isSearching = false;
   }
@@ -133,7 +119,7 @@ function setQueryParams({ q, where }) {
 /* =============================
    Init
 ============================= */
-function setupBuscadorNovias() {
+function setupBuscadorNovios() {
   const form = document.querySelector(".hero-search");
   if (!form) return;
 
@@ -165,4 +151,4 @@ function setupBuscadorNovias() {
   else clearResultadosUI();
 }
 
-document.addEventListener("DOMContentLoaded", setupBuscadorNovias);
+document.addEventListener("DOMContentLoaded", setupBuscadorNovios);
